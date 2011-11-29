@@ -38,6 +38,18 @@
       }
 
 
+      public function testOLSFunction()
+      {
+        $xs = array(
+            array(1,1,1,1),
+            array(1,5,5,5)
+         );
+         $ys = array(10,20);
+         $parameters = array(0,1,2,3);
+
+         $this->assertEquals(__ll_ols_function($xs, $ys, $parameters), pow(-4, 2) + pow(10, 2));
+      }
+
       public function testGradientDescent()
       {
          $xs = array(
@@ -51,6 +63,14 @@
          $results = _ll_gradient_descent($xs, $ys, $parameters, 0.01, 10000);
 
          $this->assertLessThan(0.01, array_shift($results));
+         foreach($results as $coefficient)
+         {
+            $this->assertGreaterThan(0.999, $coefficient);
+         }
+
+         $results = (_ll_gradient_descent($xs, $ys, $parameters, 0.03, 5));
+         $this->assertLessThan(0.3, array_shift($results));
+         $this->assertGreaterThan(0.2, array_shift($results));
          foreach($results as $coefficient)
          {
             $this->assertGreaterThan(0.99, $coefficient);
