@@ -1,5 +1,5 @@
 <?php
-   require_once "../lib/regression.php";
+   require_once "../lib/parametric/regression.php";
 
    class GradientDescentTest extends PHPUnit_Framework_TestCase 
    {
