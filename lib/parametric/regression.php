@@ -10,7 +10,7 @@
 
       $xs represents the data you want to regress on.
       $ys represents the list of "answers" (i.e., y = b0 + b1x1 + b2x2) 
-      $method is either gradient or normal
+      $method is either gradient or normal (right now)
       $alpha is used in gradient descent and represents the "learning rate", set this as high as you can get away with.
       $initialization is the vector of values to start your b0, b1, b2 values at during the gradient descent. if you don't pass it, will use a vector of 0s.
       $repetitions is the number of times to repeat. This is required unless LL_AUTODETECT_CONVERGENCE is defined to be a floating point value, in which case, we will repeat until we're within that distance from the previous iteration.
@@ -24,6 +24,18 @@
       switch($method) {
          case "gradient": default:
             return _ll_gradient_descent($xs, $ys, $initialization, $alpha, $repetitions);
+         break;
+
+         case "stochastic":
+            trigger_error("Stochastic gradient descent not implemented.");
+         break;
+
+         case "conjugate":
+            trigger_error("Conjugate gradient not implemented.");
+         break;
+
+         case "bfgs": case "lbfgs": case "l-bfgs":
+            trigger_error("BFGS not implemented.");
          break;
 
          case "normal": 
