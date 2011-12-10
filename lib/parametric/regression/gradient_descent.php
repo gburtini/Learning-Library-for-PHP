@@ -5,12 +5,12 @@
    if(!defined("LL_AUTODETECT_CONVERGENCE"))
       define("LL_AUTODETECT_CONVERGENCE", false);  // if false, requires a repetitions value; set to a number (not false) to require convergence within that distance.
       // define("LL_AUTODETECT_CONVERGENCE", 0.01); // will exit when it detects the distance between two loop iterations is less than 0.01
-   
-   function _ll_linear_gradient_desceent($xs, $ys, $initialization=null, $learning_rate=null, $repetitions=null, $convergence=null)
+
+   function _ll_linear_gradient_descent($xs, $ys, $initialization=null, $learning_rate=null, $repetitions=null, $convergence=null)
    {
-   		return _ll_gradient_descent("__ll_linear_ols_function", "__ll_linear_cost_function_derivative", $xs, $ys);
+      return _ll_gradient_descent("__ll_linear_ols_function", "__ll_linear_cost_function_derivative", $xs, $ys, $initialization, $learning_rate, $repetitions, $convergence);
    }
-   
+
    // throws alphatoolargeexception if distance increases in any iteration.
    // only pass one of repetitions, convergence.
    // $distance_function = "__ll_linear_ols_function"
@@ -26,20 +26,20 @@
 
       if($convergence === null)
       	$convergence = LL_AUTODETECT_CONVERGENCE;
-	  
+
       if($repetitions === null && $convergence === false)
          throw new RepetitionsNotSpecifiedException();
 
 	  if(!function_exists($distance_function) || !function_exists($distance_derivative))
 	  	throw new DistanceFunctionDoesntExistException();
-	  	
+
       $old_distance = $distance_function($xs,$ys,$parameters);
       $continue = true;
       $i=0;
       do
       {
          $i++;
-         $parameters = __ll_gradient_descent_iteration($xs, $ys, $parameters, $learning_rate);
+         $parameters = __ll_gradient_descent_iteration($distance_derivative, $xs, $ys, $parameters, $learning_rate);
          $new_distance = ($distance_function($xs,$ys,$parameters));
          if($old_distance < $new_distance)
          {
@@ -51,7 +51,7 @@
             } else {
                throw new AlphaTooLargeException("Set alpha smaller. Distance is increasing on iterations.");
             }
-         
+
          }
          if($repetitions !== null)
          {
@@ -77,7 +77,7 @@
       {
          $temp_parameters[] = $param - ($alpha * $distance_derivative($xs, $ys, $parameters, $index));
       }
-      return $temp_parameters; 
+      return $temp_parameters;
    }
 
    function __ll_linear_ols_function($xs, $ys, $parameters)
@@ -104,7 +104,7 @@
 
    function __ll_linear_hypothesis_function($x_row, $parameters)
    {
-      if(count($parameters) != count($x_row)) 
+      if(count($parameters) != count($x_row))
          return false;
 
       $result = 0;
