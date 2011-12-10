@@ -5,5 +5,7 @@
    */
 
    require_once "lib/accessory/matrix.php";
+   require_once "lib/accessory/scaling.php";
    require_once "lib/parametric/regression.php";
+   require_once "lib/parametric/neural_network.php";
 ?>

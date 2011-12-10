@@ -1,15 +1,15 @@
 <?php
-   /* 
+   /*
       Copyright (c) 2011 Giuseppe Burtini
       See LICENSE for more information.
 
       This library implements some basic matrix algebra constructs in PHP. It does not claim to do so
       in the most efficient known way (in particular, inversion is done in a relatively poor way), but
       rather to do so in a very clear way. When time permits, I may replace some of the less efficient
-      methods with more efficient methods. 
+      methods with more efficient methods.
 
       Alternatively, if you accept that I may relicense code submitted to this repository (I will contact
-      you specifically for approval), feel free to submit your own corrections or improvements via a 
+      you specifically for approval), feel free to submit your own corrections or improvements via a
       pull request. Please make sure any changes pass the rudimentary testing under tests/matrix_test.php
 
       This class can standalone and is not dependent on the rest of the learning library.
@@ -18,13 +18,25 @@
 
    class LL_Matrix {
       private $_data;
-      
+
       // transforms array in to a LL_Matrix
       function __construct($array)
       {
          $this->set_data($array);
       }
       function LL_matrix($array) { return $this->__construct($array); }
+
+      public static function identity($size=3)
+      {
+         $result = array();
+         for($i=0;$i<$size; $i++)
+         {
+            for($j=0; $j<$size; $j++) {
+               $result[$i][$j] = ($j == $i);
+            }
+         }
+         return new LL_Matrix($result);
+      }
 
 
       public function invert()
@@ -43,14 +55,14 @@
          $return = new LL_Matrix($return);
          $det = $return->determinant();
 
-         if($det == 0) 
+         if($det == 0)
             return false;
 
          $return = $return->scalarMultiply(1/$return->determinant());
          $return->transpose();
          return $return;
       }
-      
+
       public function transpose()
       {
          $return = array();
@@ -70,7 +82,7 @@
          $return = 0;
          if($this->columns() == 1)
             return $this->get(0,0);
-         
+
          for($i=0; $i<$this->columns(); $i++)
          {
             // instead of using 0 here, we can probably do this more efficiently.
@@ -115,7 +127,7 @@
       }
 
       public function multiply(LL_Matrix $matrix)
-      {  
+      {
          if(is_array($matrix))   // make sure the matrix is an LL_Matrix
          {
             $matrix = new LL_Matrix($matrix);
@@ -160,10 +172,15 @@
          }
          return new LL_Matrix($return);
       }
-      
+
       public function get($row, $column)
       {
          return $this->_data[$row][$column];
+      }
+
+      public function set($row, $column, $value)
+      {
+         return ($this->_data[$row][$column] = $value);
       }
 
       public function columns()
@@ -187,7 +204,7 @@
                   }
               }
          }
-         
+
          return $this->_data;
       }
 

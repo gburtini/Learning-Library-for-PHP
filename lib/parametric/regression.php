@@ -20,15 +20,15 @@
    require_once "regression/gradient_descent.php";
    require_once "regression/logistic.php";
 
-   function ll_logistic_regression($xs, $ys, $method="gradient", $learning_rate=null, $initialization=null, $repetitions=null, $convergence=null)
+   function ll_logistic_regression($xs, $ys, $method="gradient", $learning_rate=null, $regularization=null, $initialization=null, $repetitions=null, $convergence=null)
    {
-      return _ll_logistic_gradient_descent($xs, $ys, $initialization, $learning_rate, $repetitions, $convergence);
+      return _ll_logistic_gradient_descent($xs, $ys, $initialization, $learning_rate, $regularization, $repetitions, $convergence);
    }
 
    // first column of xs should be 1,1,1,...,1,1 if you want an intercept in your regression (if you don't know if you do, you do)
    // xs is array of arrays, where the inner arrays represent the data for each parameter, and the outer array is the llist of data rows
    // ys is an array of answer values
-   
+
    function ll_linear_regression($xs, $ys, $method="gradient", $learning_rate=null, $regularization=0, $initialization=null, $repetitions=null, $convergence=null)
    {
       switch($method) {
@@ -50,7 +50,7 @@
 
          case "normal":
             // compute the normal equations method... parameters = (x' x)^-1 x' y
-            return _ll_normal_equation($xs, $ys);
+            return _ll_normal_equation($xs, $ys, $regularization);
          break;
       }
    }
