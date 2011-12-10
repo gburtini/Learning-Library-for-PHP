@@ -1,5 +1,5 @@
 <?php
-   /* 
+   /*
       Copyright (c) 2011 Giuseppe Burtini
       See LICENSE for more information.
 
@@ -9,7 +9,7 @@
       otherwise stands alone and requires no other parts of the Learning Library to function.
 
       $xs represents the data you want to regress on.
-      $ys represents the list of "answers" (i.e., y = b0 + b1x1 + b2x2) 
+      $ys represents the list of "answers" (i.e., y = b0 + b1x1 + b2x2)
       $method is either gradient or normal (right now)
       $alpha is used in gradient descent and represents the "learning rate", set this as high as you can get away with.
       $initialization is the vector of values to start your b0, b1, b2 values at during the gradient descent. if you don't pass it, will use a vector of 0s.
@@ -19,15 +19,21 @@
    require_once "regression/normal_equations.php";
    require_once "regression/gradient_descent.php";
    require_once "regression/logistic.php";
-   
+
+   function ll_logistic_regression($xs, $ys, $method="gradient", $learning_rate=null, $initialization=null, $repetitions=null, $convergence=null)
+   {
+      return _ll_logistic_gradient_descent($xs, $ys, $initialization, $learning_rate, $repetitions, $convergence);
+   }
+
    // first column of xs should be 1,1,1,...,1,1 if you want an intercept in your regression (if you don't know if you do, you do)
    // xs is array of arrays, where the inner arrays represent the data for each parameter, and the outer array is the llist of data rows
    // ys is an array of answer values
-   function ll_linear_regression($xs, $ys, $method="gradient", $alpha=null, $initialization=null, $repetitions=null, $convergence=null)
+   
+   function ll_linear_regression($xs, $ys, $method="gradient", $learning_rate=null, $regularization=0, $initialization=null, $repetitions=null, $convergence=null)
    {
       switch($method) {
          case "gradient": default:
-            return _ll_linear_gradient_descent($xs, $ys, $initialization, $alpha, $repetitions, $convergence);
+            return _ll_linear_gradient_descent($xs, $ys, $initialization, $learning_rate, $regularization, $repetitions, $convergence);
          break;
 
          case "stochastic":
@@ -42,11 +48,10 @@
             trigger_error("BFGS not implemented.");
          break;
 
-         case "normal": 
+         case "normal":
             // compute the normal equations method... parameters = (x' x)^-1 x' y
             return _ll_normal_equation($xs, $ys);
          break;
       }
    }
 
-   

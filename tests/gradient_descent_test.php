@@ -60,7 +60,8 @@
          );
          $ys = array(6,9,12,15);
          $parameters = array(0,0,0,0);
-         $results = _ll_linear_gradient_descent($xs, $ys, $parameters, 0.01, 10000);
+
+         $results = _ll_linear_gradient_descent($xs, $ys, $parameters, 0.01, 0, 10000);
 
          $this->assertLessThan(0.01, array_shift($results));
          foreach($results as $coefficient)
@@ -68,7 +69,7 @@
             $this->assertGreaterThan(0.999, $coefficient);
          }
 
-         $results = (_ll_linear_gradient_descent($xs, $ys, $parameters, 0.03, 5));
+         $results = (_ll_linear_gradient_descent($xs, $ys, $parameters, 0.03, 0, 5));
          $this->assertLessThan(0.3, array_shift($results));
          $this->assertGreaterThan(0.2, array_shift($results));
          foreach($results as $coefficient)
@@ -90,7 +91,7 @@
          );
          $ys = array(6,9,12,15);
          $parameters = array(0,0,0,0);
-         $results = _ll_linear_gradient_descent($xs, $ys, $parameters, 20,100);
+         $results = _ll_linear_gradient_descent($xs, $ys, $parameters, 20, 0, 100);
       }
 
    }

@@ -1,15 +1,15 @@
 <?php
 
-   function _ll_logistic_gradient_desceent($xs, $ys, $initialization=null, $learning_rate=null, $repetitions=null, $convergence=null)
+   function _ll_logistic_gradient_descent($xs, $ys, $initialization=null, $learning_rate=null, $repetitions=null, $convergence=null)
    {
    		return _ll_gradient_descent("__ll_logistic_min_function", "__ll_logistic_cost_function_derivative", $xs, $ys);
    }
-   
+
    function __ll_sigmoid($x)
    {
    		return (1/(1+exp($x)));
    }
-   
+
    function __ll_logistic_min_function($xs, $ys, $parameters)
    {
       $result = 0;
@@ -35,7 +35,7 @@
 
    function __ll_logistic_hypothesis_function($x_row, $parameters)
    {
-      if(count($parameters) != count($x_row)) 
+      if(count($parameters) != count($x_row))
          return false;
 
       $result = 0;
@@ -43,7 +43,7 @@
          $result += $x_row[$i] * $parameters[$i];
 
 	  $result = __ll_sigmoid(exp($result * (-1)));
-	  
+
       return $result;
    }
 ?>

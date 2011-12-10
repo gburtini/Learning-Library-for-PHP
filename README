@@ -18,12 +18,3 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 If you need to work with the Learning Library in an environment
 that is not conducive to the GPL, please contact me at <joe@truephp.com>
 and we can discuss alternative licensing terms.
-
---
-
-I would like to rewrite the regression stuff to be more generic
-in particular, it should have an optimization function that takes
-two functions as inputs ($objective, $derivatives($number)) and
-returns a maximum accordingly. That would allow the methods to
-be genericized over different types of problems (say linear vs.
-logistic).
