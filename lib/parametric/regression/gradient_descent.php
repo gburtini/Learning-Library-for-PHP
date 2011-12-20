@@ -45,13 +45,13 @@
 
       $old_distance = $distance_function($xs,$ys,$parameters,$regularization);
       $continue = true;
-      $bad_iterations = $i=0;
+      $bad_iterations = $i = 0;
       do
       {
          $i++;
          $parameters = __ll_gradient_descent_iteration($distance_derivative, $xs, $ys, $parameters, $learning_rate, $regularization);
          $new_distance = ($distance_function($xs,$ys,$parameters, $regularization));
-         var_dump($old_distance . " < " . $new_distance);
+
          if($old_distance < $new_distance)
          {
             // we're going backwards.
@@ -69,6 +69,7 @@
             }
 
          }
+
          if($repetitions !== null)
          {
             $continue = ($i++ < $repetitions);
@@ -90,12 +91,10 @@
       $temp_parameters = array();
       foreach($parameters as $index=>$param)
       {
-         //var_dump($param);
-         //var_dump((1 - $alpha * ($regularization[$index] / count($xs))));
          if($regularization !== null && $index != 0)
             $param = $param * (1 - $alpha * ($regularization / count($xs)));
 
-         $temp_parameters[] = $param - ($alpha * $distance_derivative($xs, $ys, $parameters, $index));
+         $temp_parameters[] = $param - ($alpha * $distance_derivative($xs, $ys, $parameters, $index, $regularization));
       }
       return $temp_parameters;
    }
@@ -122,7 +121,7 @@
       return $result;
    }
 
-   function __ll_linear_cost_function_derivative($xs, $ys, $parameters, $wrt=0)
+   function __ll_linear_cost_function_derivative($xs, $ys, $parameters, $wrt=0, $unused=null)
    {
       $data_count = count($ys);
       $result = 0;

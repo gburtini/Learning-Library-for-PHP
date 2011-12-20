@@ -14,7 +14,7 @@
          );
          $ys = array(2,4,6,8);
 
-         $result = (_ll_normal_equation($xs, $ys));
+         $result = (_ll_linear_normal_equation($xs, $ys));
          $this->assertEquals($result[0], 0);
          $this->assertEquals($result[1], 2);
      }

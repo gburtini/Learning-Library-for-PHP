@@ -50,7 +50,7 @@
 
          case "normal":
             // compute the normal equations method... parameters = (x' x)^-1 x' y
-            return _ll_normal_equation($xs, $ys, $regularization);
+            return _ll_linear_normal_equation($xs, $ys, $regularization);
          break;
       }
    }
