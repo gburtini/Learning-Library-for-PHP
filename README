@@ -1,6 +1,33 @@
 Learning Library for PHP - some machine learning algorithms implemented in PHP
 Copyright (C) 2011 Giuseppe Burtini <joe@truephp.com>
 
+For effective use, a lot of this library will have to be customized. This is a
+largely academic project. In many cases I've opted to write clearer code in favor
+of faster code, and in other cases, I've excluded useful features for "real world"
+applications (like training, saving the trained data to a file, and then running
+the actual "estimates" after in a separate location).
+
+If you would like to deploy this in a real world application, I would be happy
+to work on it: contact me at joe@truephp.com.
+
+Most of the code in this library is designed such that the rest of the library
+can just be thrown away if you would like to use it. In parametric/ and unsupervised/
+each "type" of learning is implemented in a file of its own (though, regression
+stuff gets a whole directory!) so as to be useful without loading the rest of the
+library.
+
+There are many things that can be improved and there are many known properties (and
+optimization techniques) that can be used to improve the performance of these
+algorithms that have not been implemented here. This is very much a "first try" at
+implementing a lot of these algorithms in PHP and should be looked at as a possible
+starting point for learning algorithms in PHP, not necessarily a deployable library.
+
+In many cases, the right answer will be to implement the learning algorithms in a
+faster language and use PHP only to evaluate their probabilities / compute results
+from the existing estimates. 
+
+--
+
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
@@ -18,3 +45,4 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 If you need to work with the Learning Library in an environment
 that is not conducive to the GPL, please contact me at <joe@truephp.com>
 and we can discuss alternative licensing terms.
+

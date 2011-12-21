@@ -19,6 +19,8 @@
  * we have not yet provided a function to do that.
  */
 
+require_once dirname(__FILE__) . "/../accessory/functions.php";
+
 // $xs is a two dimensional array (one dimension being observations, the inner dimension being integral "dimensions" of the observation)
 function ll_kmeans($xs, $k)
 {
@@ -73,15 +75,7 @@ function _ll_reposition_centroids($centroids, $belongs_to, $xs)
 // makes rows in to columns; columns in to rows. "transposes" the matrix.
 function __ll_flip($rows)
 {
-   $columns = array();
-   for($i=0;$i<count($rows);$i++)
-   {
-      for($k = 0; $k<count($rows[$i]); $k++)
-      {
-         $columns[$k][$i] = $rows[$i][$k];
-      }
-   }
-   return $columns;
+   return ll_transpose($rows);
 }
 
 // finds the closest centroid to a given $x, by Euclidian distance.
