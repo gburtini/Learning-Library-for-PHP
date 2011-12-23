@@ -29,4 +29,17 @@ function ll_variance($array) {
    $variance = $sum_difference / $n;
    return $variance;
 }
+
+function ll_euclidian_distance($a, $b) {
+   if(count($a) != count($b))
+      return false;
+
+   $distance = 0;
+   for($i=0;$i<count($a);$i++)
+   {
+      $distance += pow($a[$i] - $b[$i], 2);
+   }
+
+   return sqrt($distance);
+}
 ?>

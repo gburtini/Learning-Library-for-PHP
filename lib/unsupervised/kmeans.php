@@ -98,16 +98,7 @@ function _ll_closest_centroid($x, $centroids)
 // computes the Euclidian distance from a point x to a centroid $centroid.
 function __ll_distance_to_centroid($x, $centroid)
 {
-   if(count($x) != count($centroid))
-      return false;
-
-   $distance = 0;
-   for($i=0;$i<count($x);$i++)
-   {
-      $distance += pow($x[$i] - $centroid[$i], 2);
-   }
-
-   return sqrt($distance);
+   return ll_euclidian_distance($x, $centroid);
 }
 
 // initializes the location of the centroids to a random data point.
