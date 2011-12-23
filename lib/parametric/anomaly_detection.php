@@ -10,6 +10,53 @@
  */
 require_once dirname(__FILE__) . "/../accessory/functions.php";
 
+class LL_OnlineAnomalyDetection extends LL_AnomalyDetection {
+   private $sums;
+   private $m2s;
+   private $counts;
+
+   public function addObservation($x) {
+      for($i=0;$i<count($x);$x++)
+      {
+         $this->sums[$i] += $x[$i];
+         $this->counts[$i]++;
+         $this->m2s[$i] += (pow($x[$i] - $this->mean[$i], 2));
+
+         $this->updateMean($index);
+         $this->updateVariance($index);
+      }
+   }
+
+   protected function computeParameters($xs) {
+      $xs_columns = ll_transpose($xs);
+      foreach($xs_columns as $index=>$column) {
+         $this->sums[$index] = $sum = array_sum($column);
+         $this->counts[$index] = $count = count($column);
+
+         $mean = ll_mean($column);
+         $sum_difference = 0;
+         $n = count($column);
+
+         for($i=0; $i<$n; $i++) {
+            $sum_difference += pow(($column[$i] - $mean),2);
+         }
+
+         $this->m2s[$index] = $sum_difference;
+
+
+         $this->updateMean($index);
+         $this->updateVariance($index);
+      }
+   }
+
+   protected function updateMean($index) {
+      $this->mean[$index] = $this->sums[$index] / $this->counts[$index];
+   }
+   protected function updateVariance($index) {
+      $this->variance[$index] = $this->x2s[$index] / $this->counts[$index];
+   }
+}
+
 class LL_AnomalyDetection {
    private $mean = array();
    private $variance = array();
@@ -47,7 +94,7 @@ class LL_AnomalyDetection {
    {
       return (1/(sqrt(2 * pi()) * sqrt($variance)) * (exp((-1) * pow($x - $mean, 2) / (2 * $variance))));
    }
-   private function computeParameters($xs)
+   protected function computeParameters($xs)
    {
       $xs_columns = ll_transpose($xs);
       foreach($xs_columns as $index=>$column) {

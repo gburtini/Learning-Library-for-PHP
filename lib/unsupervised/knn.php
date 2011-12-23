@@ -1,5 +1,8 @@
 <?php
 
+require_once dirname(__FILE__) . "/../accessory/functions.php";
+
+
 // returns the predictions (sorted array) in an array ("bestprediction"=>count, "pred2"=>count2...)
 function ll_nn_predict($xs, $ys, $row, $k)
 {
