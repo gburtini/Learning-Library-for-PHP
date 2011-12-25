@@ -6,18 +6,24 @@ define("LL_NB_HASH_FUNCTION", "crc32");// crc32 is the fastest built in hash fun
 
 // $xs is a bunch of "strings" and ys are their labels.
 function ll_naivebayes($xs, $ys, $testStrings) {
-   $wordCounts = _ll_computeWordCounts($xs);
-   //$wordCounts = _ll_computeTotalWordCounts($wordCounts);
+   $topicWords = array();
+   foreach($xs as $i=>$x) {
+      if(isset($topicWords[$ys[$i]]))
+         $topicWords[$ys[$i]] .= $x;
+      else
+         $topicWords[$ys[$i]] = $x;
+   }
+   $topicWords = _ll_computeWordCounts($topicWords);   // get the number of each word, by topic.
 
    $probWordsGivenTopic = array();   // probability of each word in a given topic.
    $countTopics = array();
-   $totalWords = 0;
-   foreach($wordCounts as $i=>$xWordCounts) {
+
+   foreach($topicWords as $topicIndex=>$xWordCounts) {
       $totalWordsTopic = array_sum($xWordCounts);
-      $countTopics[$i] = $total_wordsTopic;
+      $countTopics[$topicIndex] = $total_wordsTopic;
 
       foreach($xCount as $hash=>$count) {
-         $probWordsGivenTopic[$i][$hash] = ($count/$totalWordsTopic);
+         $probWordsGivenTopic[$topicIndex][$hash] = ($count/$totalWordsTopic);
       }
    }
 
@@ -48,16 +54,6 @@ function ll_naivebayes($xs, $ys, $testStrings) {
       $return[$i] = $topicsPosterior;
    }
    return $return;
-}
-
-function _ll_computeTotalWordCounts($wordCounts) {
-   $total = array();
-   foreach($wordCounts as $wc) {
-      foreach($wc as $hash=>$value) {
-         $total[$hash] += $value;
-      }
-   }
-   return $total;
 }
 
 function _ll_computeWordCounts($strings) {
