@@ -6,7 +6,6 @@
       // These are valid tests because the data are loaded such that the results are "obvious" and perfectly predictable by the algorithm
       public function testLogisticGradientDescentExperimental()
       {
-
          $xs = array(
             array(1,1,2,2),
             array(1,1,3,0),

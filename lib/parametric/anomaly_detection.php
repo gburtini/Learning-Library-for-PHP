@@ -16,14 +16,15 @@ class LL_OnlineAnomalyDetection extends LL_AnomalyDetection {
    private $counts;
 
    public function addObservation($x) {
-      for($i=0;$i<count($x);$x++)
+      for($i=0;$i<count($x);$i++)
       {
+         $this->updateMean($i);
+         $this->updateVariance($i);
+
          $this->sums[$i] += $x[$i];
          $this->counts[$i]++;
          $this->m2s[$i] += (pow($x[$i] - $this->mean[$i], 2));
 
-         $this->updateMean($index);
-         $this->updateVariance($index);
       }
    }
 
@@ -53,13 +54,13 @@ class LL_OnlineAnomalyDetection extends LL_AnomalyDetection {
       $this->mean[$index] = $this->sums[$index] / $this->counts[$index];
    }
    protected function updateVariance($index) {
-      $this->variance[$index] = $this->x2s[$index] / $this->counts[$index];
+      $this->variance[$index] = $this->m2s[$index] / $this->counts[$index];
    }
 }
 
 class LL_AnomalyDetection {
-   private $mean = array();
-   private $variance = array();
+   protected $mean = array();
+   protected $variance = array();
 
    private $learned = false;
 
@@ -84,7 +85,6 @@ class LL_AnomalyDetection {
    protected function computeProbability($x) {
       $prod = 1;
       foreach($x as $index=>$xi) {
-
          $prob = $this->normalPdf($xi, $this->mean[$index], $this->variance[$index]);
          $prod *= $prob;
       }

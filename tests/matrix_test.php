@@ -58,7 +58,7 @@
          $result = $matrix->scalarMultiply(5);
          for($i=0;$i<4;$i++)
          {
-            $this->assertEquals($result->get($i,$i), 5); 
+            $this->assertEquals($result->get($i,$i), 5);
          }
       }
 
@@ -69,7 +69,7 @@
          $result = $matrix->multiply($identity3);
 
          for($i=0; $i<count($input); $i++) {
-            for($j = 0; $j<count($input[0]); $j++) 
+            for($j = 0; $j<count($input[0]); $j++)
             {
                $this->assertEquals($result->get($i, $j), $input[$i][$j]);  // identity multiplication should have no effect
             }
@@ -78,17 +78,17 @@
          $result = $matrix->multiply(new LL_Matrix($input));   // test multiplying by itself.
          $this->assertNotEquals($result, false);
 
-         $this->assertEquals($result->get(0,0), 10);     
-         $this->assertEquals($result->get(0,1), 12);     
-         $this->assertEquals($result->get(0,2), 8);     
+         $this->assertEquals($result->get(0,0), 10);
+         $this->assertEquals($result->get(0,1), 12);
+         $this->assertEquals($result->get(0,2), 8);
 
-         $this->assertEquals($result->get(1,0), 10);     
-         $this->assertEquals($result->get(1,1), 12);     
-         $this->assertEquals($result->get(1,2), 12);    
+         $this->assertEquals($result->get(1,0), 10);
+         $this->assertEquals($result->get(1,1), 12);
+         $this->assertEquals($result->get(1,2), 12);
 
-         $this->assertEquals($result->get(2,0), 8);     
-         $this->assertEquals($result->get(2,1), 8);     
-         $this->assertEquals($result->get(2,2), 6);     
+         $this->assertEquals($result->get(2,0), 8);
+         $this->assertEquals($result->get(2,1), 8);
+         $this->assertEquals($result->get(2,2), 6);
 
          // test uneven shapes
          $input = array(array(1,2,3), array(0,2,0));
@@ -117,7 +117,7 @@
 
 
       // test helpers
-      private function getIdentityMatrix($size=3) 
+      private function getIdentityMatrix($size=3)
       {
          $result = array();
          for($i=0;$i<$size; $i++)
