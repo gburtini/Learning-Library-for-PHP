@@ -1,4 +1,6 @@
 <?php
+// this could be changed to use bi or even tri grams instead of unigram. might be worth
+// implementing.
 
 global $LL_NB_STOP_WORDS;
 $LL_NB_STOP_WORDS = array("the", "a", "an");
