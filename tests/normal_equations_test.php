@@ -14,7 +14,9 @@
          );
          $ys = array(2,4,6,8);
 
-         $result = (_ll_linear_normal_equation($xs, $ys));
+         $ner = new LL_NormalEquations_Regression($xs, $ys);
+         $result = $ner->train();
+         
          $this->assertEquals($result[0], 0);
          $this->assertEquals($result[1], 2);
      }

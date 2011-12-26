@@ -14,9 +14,13 @@
          );
          $ys = array(1,1,0,1);
 
-         $results = (_ll_logistic_gradient_descent($xs, $ys, null, 0.03, null, 1000));
+         $lgd = new LL_GradientDescent_Logistic_Regression($xs, $ys);
+         $lgd->setLearningRate(0.03);
+         $lgd->setRepetitions(1000);
+         $lgd->train();
+
          foreach($xs as $index=>$x) {
-            $prediction = ll_logistic_predict($x, $results);
+            $prediction = $lgd->predict($x);
             $this->assertTrue((bool)$ys[$index] == $prediction);
          }
 
@@ -32,9 +36,11 @@
          );
          $ys = array(1,1,0,1,1,1,0,1);
 
-         $results = (_ll_logistic_gradient_descent($xs, $ys, null, 0.03, null, 1000));
+         $lgd->setData($xs, $ys);
+         $lgd->train();
+
          foreach($xs as $index=>$x) {
-            $prediction = ll_logistic_predict($x, $results);
+            $prediction = $lgd->predict($x);
             $this->assertTrue((bool)$ys[$index] == $prediction);
          }
       }
