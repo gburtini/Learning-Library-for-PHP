@@ -24,8 +24,8 @@ class LL_GradientDescent_Regression extends LL_Regression {
          if($distance <= $newDistance)
          {
             $badIterationsCount++;
-            // we could autoresolve learning rate here by setting it equal to L.R./2
-
+            // line search and backtrack for an appropriate learning rate here.
+            
             if($badIterationsCount > $this->badIterationsThreshold)
                throw new BadIterationsException("Distance is increasing on iterations. You probably want to set a lower learning rate.");
          } else {
@@ -95,6 +95,7 @@ class LL_GradientDescent_Regression extends LL_Regression {
       return $result;
    }
 
+   // computes gradients by passing in with_regard_to_index.
    protected function distanceDerivative($with_regard_to_index) {
       $data_count = count($this->ys);
       $result = 0;
