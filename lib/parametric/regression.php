@@ -66,6 +66,7 @@ abstract class LL_Regression implements ILL_Regression {
 }
 
 require_once dirname(__FILE__) . "/regression/gradient_descent.php";
+require_once dirname(__FILE__) . "/regression/stochastic_gradient_descent.php";
 require_once dirname(__FILE__) . "/regression/logistic.php";
 require_once dirname(__FILE__) . "/regression/normal_equations.php";
 

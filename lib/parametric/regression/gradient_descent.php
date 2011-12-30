@@ -21,13 +21,15 @@ class LL_GradientDescent_Regression extends LL_Regression {
          $parameters = $this->iteration();
          $newDistance = $this->distance($parameters);
 
-         if($distance < $newDistance)
+         if($distance <= $newDistance)
          {
             $badIterationsCount++;
             // we could autoresolve learning rate here by setting it equal to L.R./2
 
             if($badIterationsCount > $this->badIterationsThreshold)
                throw new BadIterationsException("Distance is increasing on iterations. You probably want to set a lower learning rate.");
+         } else {
+            $badIterationsCount = 0;   // reset bad iterations count on a good iteration.
          }
 
          if($this->repetitions !== null)
@@ -71,7 +73,7 @@ class LL_GradientDescent_Regression extends LL_Regression {
 
 
 
-   private function iteration($parameters=null) {
+   protected function iteration($parameters=null) {
       if($parameters === null)
          $parameters = $this->parameters;
 
