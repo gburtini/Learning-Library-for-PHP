@@ -21,6 +21,7 @@ class LL_OnlineAnomalyDetection extends LL_AnomalyDetection {
    private $m2s;
    private $counts;
 
+   protected $toSave = array("sums", "m2s", "counts");
    /*
     * addObservation($x)
     *   - pass in an array $x representing all the dimensions relevant to your observation.
@@ -47,6 +48,7 @@ class LL_OnlineAnomalyDetection extends LL_AnomalyDetection {
          $this->updateVariance($i);
       }
    }
+
 
    protected function computeParameters($xs) {
       if(!is_array($xs[0])) {
@@ -128,6 +130,32 @@ class LL_AnomalyDetection {
          return $probability;
 
       return ($probability < $p);
+   }
+
+
+   protected $toSave = array("mean", "variance");
+   public function save() {
+      $saveString = "";
+      foreach($this->toSave as $save)
+      {
+          $saveString .= implode(",", $this->$save) . "|";
+      }
+	  $s_learned = intval($this->learned);
+	  
+	  return $saveString . $s_learned;
+   }
+
+   public function load($saveString) {
+      $saveArray = explode("|", $saveString);
+      if(count($saveArray) != count($this->toSave)-1)
+          return false;
+
+      foreach($this->toSave as $key=>$load) 
+      {
+          $this->$load = explode(",", $saveArray[$key]);
+      }
+      
+      $this->learned = (bool) end($saveArray);
    }
 
    protected function computeProbability($x) {
