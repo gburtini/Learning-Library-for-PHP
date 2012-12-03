@@ -1,0 +1,1 @@
+This directory is just an idea -- the idea is to try to perform regression analysis in pure SQL. It works for the simple linear regression case, but not the multiple regression case because I cannot get matrix inversion working right on the representation. If you work on this or use this for anything, please provide appropriate credit and respect the license.
