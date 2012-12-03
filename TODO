@@ -1,0 +1,6 @@
+- Update to PHP 5.x, change to use namespaces instead of messy function names.
+- Lots of missing documentation.
+- Build PGraph class / pruning/branch model.
+- Build MonteCarlo class (with callbacks)
+- OOize any appropriate models.
+
