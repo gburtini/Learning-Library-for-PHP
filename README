@@ -1,5 +1,5 @@
 Learning Library for PHP - some machine learning algorithms implemented in PHP
-Copyright (C) 2011 Giuseppe Burtini <joe@truephp.com>
+Copyright (C) 2011, 2012 Giuseppe Burtini <joe@truephp.com>
 
 For effective use, a lot of this library will have to be customized. This is a
 largely academic project. In many cases I've opted to write clearer code in favor
