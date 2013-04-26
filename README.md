@@ -10,7 +10,7 @@ In general, you'll want to grab just the "required" features from this repositor
 ## Available Algorithms
 
 ### Unsupervised
-* **DBScan** (dbscan.php) - Density Based Clustering (_Arlia et al 2001_; _Kriegel et al 2011_) - a clustering/unsupervised classification algorithm based on the idea of "density reachability." This algorithm is a win over the others because one does not need to specify the number of clusters _a priori_. The parameters are $e(psilon), the size of a neighborhood to visit (a noise threshold) and $minimumPoints, the minimum number of points to form a cluster.
+* **DBScan** (dbscan.php) - Density Based Clustering ( _Arlia et al 2001_; _Kriegel et al 2011_) - a clustering/unsupervised classification algorithm based on the idea of "density reachability." This algorithm is a win over the others because one does not need to specify the number of clusters _a priori_. The parameters are $e(psilon), the size of a neighborhood to visit (a noise threshold) and $minimumPoints, the minimum number of points to form a cluster.
 * **KMeans** (kmeans.php) - the standard clustering algorithm which breaks data in to k "most different" groups. The technique is simply to reposition the "centroid" to the average of all points until it doesn't move any longer.
 * **K Neared Neighbors** (knn.php) - similar to KMeans, except "flipped on its head" - a clustering algorithm which builds the best clusters that are of size k (rather than building k clusters). ([Wikipedia](http://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm))
 * **Markov Chain** (markovchain.php) - a n-order Markov Chain implementation - takes in a list of values to train and computes probabilities simply from observations.
