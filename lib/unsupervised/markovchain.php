@@ -90,8 +90,7 @@
 				$start = $s;
 			}
 
-			$return = array(implode(" ", $start));
-			$curr = $start;
+			$return = $curr = $start;
 			for($i = 0; $i < $length; $i++) {
 				$next = $this->generateOne($curr);
 				$return[] = $next;
