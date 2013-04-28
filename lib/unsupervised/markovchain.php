@@ -76,12 +76,19 @@
 			return implode(" ", $array);
 		}
 
-		public function generate($length = null, $start = HMM_START_TOKEN) {
+		public function generate($length = null, $start = HMM_START_TOKEN, $token = "/[\s,]+/") {
 			if(!is_array($start)) {
-				$start = array($start);
+				$start = ($this->tokenize($start, $token));
 			}
 
-			if (count($start) != $this->degree) {
+			$return = $start ;
+			while(count($start) > $this->degree) {
+				// we have a problem, sort of; pop words out of the feed
+				array_shift($start);	
+			}
+
+			if (count($start) < $this->degree) {
+				// fill the start array with HMM_START_TOKENs up to the length of degree (we'll shift them off if necessary in generateOne)
 				$s = array_fill(0, $this->degree, HMM_START_TOKEN);
 				$diff = $this->degree - count($start);
 				foreach($start as $val) {
@@ -90,7 +97,7 @@
 				$start = $s;
 			}
 
-			$return = $curr = $start;
+			$curr = $start;
 			for($i = 0; $i < $length; $i++) {
 				$next = $this->generateOne($curr);
 				$return[] = $next;
