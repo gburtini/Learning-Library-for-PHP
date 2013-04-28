@@ -10,19 +10,31 @@ In general, you'll want to grab just the "required" features from this repositor
 ## Available Algorithms
 
 ### Unsupervised
-* **DBScan** (dbscan.php) - Density Based Clustering ( _Arlia et al 2001_; _Kriegel et al 2011_) - a clustering/unsupervised classification algorithm based on the idea of "density reachability." This algorithm is a win over the others because one does not need to specify the number of clusters _a priori_. The parameters are $e(psilon), the size of a neighborhood to visit (a noise threshold) and $minimumPoints, the minimum number of points to form a cluster.
+* **DBScan** (dbscan.php) - Density Based Clustering [1][2] - a clustering/unsupervised classification algorithm based on the idea of "density reachability." This algorithm is a win over the others because one does not need to specify the number of clusters _a priori_. The parameters are $e(psilon), the size of a neighborhood to visit (a noise threshold) and $minimumPoints, the minimum number of points to form a cluster.
 * **K Means** (kmeans.php) - the standard clustering algorithm which breaks data in to k "most different" groups. The technique is simply to reposition the "centroid" to the average of all points until it doesn't move any longer.
-* **K Nearest Neighbors** (knn.php) - similar to KMeans, except "flipped on its head" - a clustering algorithm which builds the best clusters that are of size k (rather than building k clusters). ([Wikipedia](http://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm))
+* **K Nearest Neighbors** (knn.php) - similar to K Means, except "flipped on its head" - a clustering algorithm which builds the best clusters that are of size k (rather than building k clusters). ([Wikipedia](http://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm))
 * **Markov Chain** (markovchain.php) - a n-order Markov Chain implementation - takes in a list of values to train and computes probabilities simply from observations.
 
 ### Parametric
-* **Anomaly Detection** (anomaly_detection.php)
+* **Anomaly Detection** (anomaly\_detection.php) - assume a normal distribution, train data (n-dimensional) and then test to see if a given record is an "outlier" (less likely than a given percent, given the distribution). Assumes semi-stationarity (training can happen online with testing if you wish). 
 * **Naive Bayes** (naivebayes.php)
 * **Regression** (regression.php) including optimization implementations for gradient descent ("take a step in the right direction"), stochastic gradient descent, normal equations and a logistic regression implementation.
 
 ## References
-* Domenica Arlia, Massimo Coppola. "Experiments in Parallel Clustering with DBSCAN". Euro-Par 2001: Parallel Processing: 7th International Euro-Par Conference Manchester, UK August 28–31, 2001, Proceedings. Springer Berlin.
-* Hans-Peter Kriegel, Peer Kröger, Jörg Sander, Arthur Zimek (2011). "Density-based Clustering". WIREs Data Mining and Knowledge Discovery 1 (3): 231–240. doi:10.1002/widm.30.
+* [1] Domenica Arlia, Massimo Coppola. "Experiments in Parallel Clustering with DBSCAN". Euro-Par 2001: Parallel Processing: 7th International Euro-Par Conference Manchester, UK August 28–31, 2001, Proceedings. Springer Berlin.
+* [2] Hans-Peter Kriegel, Peer Kröger, Jörg Sander, Arthur Zimek (2011). "Density-based Clustering". WIREs Data Mining and Knowledge Discovery 1 (3): 231–240. doi:10.1002/widm.30.
+
+## To-Do
+
+* Update to PHP 5.x, change to use namespaces instead of messy function names.
+* Lots of missing documentation - most public facing methods are currently undocumented; bad.
+* Build MonteCarlo class (with callbacks)
+* OOize all appropriate algorithms (use "train" and "test" when possible).
+* Complete tests for algorithms that do not have them.
+* Consider adding a pathfinding/graph search algorithm set.
+* Ensemble and boosting learning methods like random forests / CART / BART
+* Neural networks and HMMs.
+* NLP work, specifically a class for using WordNet and the Stanford Core NLP library; eventually, NLP work should probably be forked as its own project.
 
 ## Notes for Use
 
