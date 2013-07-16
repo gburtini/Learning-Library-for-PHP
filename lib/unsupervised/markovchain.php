@@ -101,6 +101,10 @@
 				array_shift($curr);
 				$curr[] = $next; 
 			}
+
+		        while($return[0] == HMM_START_TOKEN)	// NOTE: this is a hacky bug fix. figure out why HMM_START_TOKEN is getting prepended at next look.
+		                array_shift($return);
+
 			return $return;
 		}
 
