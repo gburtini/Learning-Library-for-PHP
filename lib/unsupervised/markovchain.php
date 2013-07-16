@@ -1,6 +1,6 @@
 <?php
-	define("HMM_START_TOKEN", "--HMM_START_TOKEN--");
-
+	define("HMM_START_TOKEN", "HMM_START_TOKEN");
+	define("HMM_TOKEN_PATTERN", "/([\s,;.?!\-]+)/");
 	/*
 		Example usage:
 
@@ -18,7 +18,7 @@
 		protected $degree;
 
 		// corpus can be either a string, which will be tokenized or an array which is assumed to already be tokenized.
-		public function train($corpus, $degree = 1, $token = "/[\s,]+/") {
+		public function train($corpus, $degree = 1, $token = HMM_TOKEN_PATTERN) {
 			if(!is_array($corpus)) 
 				$corpus = $this->tokenize($corpus, $token);
 	
@@ -27,9 +27,6 @@
 			$this->degree = $degree;
 
 			foreach($corpus as $name) {
-				$name = trim($name);
-				if($name == "")
-					continue;
 
 				$use = $prev;
 				for($i = 0; $i < $this->degree; $i++) {
@@ -67,7 +64,7 @@
 
 		// extend the class to override the tokenizer (or just pass in tokenized in to train)
 		protected function tokenize($corpus, $token) {
-			return preg_split($token, $corpus);
+			return preg_split($token, $corpus, null, PREG_SPLIT_DELIM_CAPTURE);
 		}
 
 		protected function prepareIndex($array) {
@@ -76,7 +73,7 @@
 			return implode(" ", $array);
 		}
 
-		public function generate($length = null, $start = HMM_START_TOKEN, $token = "/[\s,]+/") {
+		public function generate($length = null, $start = HMM_START_TOKEN, $token = HMM_TOKEN_PATTERN) {
 			if(!is_array($start)) {
 				$start = ($this->tokenize($start, $token));
 			}

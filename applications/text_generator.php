@@ -1,4 +1,5 @@
 <?php
+	ini_set("memory_limit", "8G");
 	// Uses a Markov Chain to generate text.
 	/*
 		Synopsis:
@@ -51,6 +52,6 @@
 	while($generated[0] == HMM_START_TOKEN) 
 		array_shift($generated);
 	
-	echo "\n" . implode(" ", $generated);
+	echo "\n" . implode("", $generated);
 
 
