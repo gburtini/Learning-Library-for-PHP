@@ -28,6 +28,7 @@ In general, you'll want to grab just the "required" features from this repositor
 
 * Update to PHP 5.x, change to use namespaces instead of messy function names.
 * Lots of missing documentation - most public facing methods are currently undocumented; bad.
+* Build TF-IDF class / simple vector search space class.
 * Build MonteCarlo class (with callbacks)
 * OOize all appropriate algorithms (use "train" and "test" when possible).
 * Complete tests for algorithms that do not have them.
