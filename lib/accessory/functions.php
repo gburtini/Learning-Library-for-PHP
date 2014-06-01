@@ -42,4 +42,9 @@ function ll_euclidian_distance($a, $b) {
 
    return sqrt($distance);
 }
+
+function unirandf()
+{
+   return mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
+}
 ?>

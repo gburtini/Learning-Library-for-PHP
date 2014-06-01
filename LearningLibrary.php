@@ -9,9 +9,10 @@
    require_once "lib/accessory/matrix.php";
    require_once "lib/accessory/scaling.php";
    require_once "lib/parametric/regression.php";
-   require_once "lib/parametric/neural_network.php";
+   //require_once "lib/parametric/neural_network.php";
    require_once "lib/parametric/anomaly_detection.php";
    require_once "lib/parametric/naivebayes.php";
    require_once "lib/unsupervised/kmeans.php";
    require_once "lib/unsupervised/knn.php";
+   require_once "lib/globaloptimization/sann.php";
 ?>
