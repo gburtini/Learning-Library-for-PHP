@@ -1,7 +1,7 @@
 # Learning Library for PHP 
 Some machine learning/artificial intelligence/natural language processing algorithms implemented in PHP
 
-Copyright (C) 2011, 2012, 2013 Giuseppe Burtini <joe@truephp.com>
+Copyright (C) 2011-2014 Giuseppe Burtini <joe@truephp.com> and contributors as appropriate. 
 
 ## Instructions
 
