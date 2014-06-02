@@ -19,6 +19,7 @@ In general, you'll want to grab just the "required" features from this repositor
 * **Anomaly Detection** (anomaly\_detection.php) - assume a normal distribution, train data (n-dimensional) and then test to see if a given record is an "outlier" (less likely than a given percent, given the distribution). Assumes semi-stationarity (training can happen online with testing if you wish). 
 * **Naive Bayes** (naivebayes.php)
 * **Regression** (regression.php) including optimization implementations for gradient descent ("take a step in the right direction"), stochastic gradient descent, normal equations and a logistic regression implementation.
+* **Simulated Annealing** (sann.php) - an implementation of simulated annealing, a probabilistic metaheuristic for finding global optima with no assumptions about smoothness or size of the search space. Written by Graeme Douglas (2014).
 
 ## References
 * [1] Domenica Arlia, Massimo Coppola. "Experiments in Parallel Clustering with DBSCAN". Euro-Par 2001: Parallel Processing: 7th International Euro-Par Conference Manchester, UK August 28–31, 2001, Proceedings. Springer Berlin.
