@@ -39,6 +39,11 @@ class LL_Matrix {
         return new LL_Matrix($result);
     }
 
+    public function dotProduct(LL_Matrix $x) {
+    	$a = $this->_data;
+    	$b = $x->getData();
+    	return array_sum(array_map(create_function('$a, $b', 'return $a * $b;'), $a, $b));
+    }
 
     public function invert()
     {
@@ -370,6 +375,8 @@ class LL_Matrix {
     public function rows() {
         return count($this->_data);
     }
+    
+    public function getData() { return $this->_data; }
 
     private function set_data($array)
     {
