@@ -21,6 +21,10 @@ In general, you'll want to grab just the "required" features from this repositor
 * **Regression** (regression.php) including optimization implementations for gradient descent ("take a step in the right direction"), stochastic gradient descent, normal equations and a logistic regression implementation.
 * **Simulated Annealing** (sann.php) - an implementation of simulated annealing, a probabilistic metaheuristic for finding global optima with no assumptions about smoothness or size of the search space. Written by Graeme Douglas (2014).
 
+### Bandits (Partial Observation Reinforcement Learning)
+* **Epsilon Greedy Bandit** (EpsilonBandit.php) - explores (purely randomly) **e** fraction of the time, exploits (maximizes estimated reward) the rest.
+* **UCB1 Bandit** (UCB1Bandit.php) - implements the UCB1 (upper confidence bound) algorithm, as described by Auer et al. (2002). Provides an average and padding function implementation that can easily be extended to other UCB variants.
+
 ## References
 * [1] Domenica Arlia, Massimo Coppola. "Experiments in Parallel Clustering with DBSCAN". Euro-Par 2001: Parallel Processing: 7th International Euro-Par Conference Manchester, UK August 28–31, 2001, Proceedings. Springer Berlin.
 * [2] Hans-Peter Kriegel, Peer Kröger, Jörg Sander, Arthur Zimek (2011). "Density-based Clustering". WIREs Data Mining and Knowledge Discovery 1 (3): 231–240. doi:10.1002/widm.30.
