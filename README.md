@@ -1,7 +1,7 @@
 # Learning Library for PHP 
-Some machine learning/artificial intelligence/natural language processing algorithms implemented in PHP
+Some machine learning/artificial intelligence/natural language processing algorithms implemented in PHP. Note that in almost all cases, PHP as it stands today is the wrong tool for most machine learning jobs. This library provides a pedagogical introduction to these tools more than it is a recommendation that it is used for day-to-day development.
 
-Copyright (C) 2011-2014 Giuseppe Burtini <joe@truephp.com> and contributors as appropriate. 
+Copyright (C) 2011-2015 Giuseppe Burtini <joe@truephp.com> and contributors as appropriate. 
 
 ## Instructions
 
@@ -28,6 +28,7 @@ In general, you'll want to grab just the "required" features from this repositor
 ## References
 * [1] Domenica Arlia, Massimo Coppola. "Experiments in Parallel Clustering with DBSCAN". Euro-Par 2001: Parallel Processing: 7th International Euro-Par Conference Manchester, UK August 28–31, 2001, Proceedings. Springer Berlin.
 * [2] Hans-Peter Kriegel, Peer Kröger, Jörg Sander, Arthur Zimek (2011). "Density-based Clustering". WIREs Data Mining and Knowledge Discovery 1 (3): 231–240. doi:10.1002/widm.30.
+* [3] Auer, Peter, Nicolo Cesa-Bianchi, and Paul Fischer. "Finite-time analysis of the multiarmed bandit problem." Machine learning 47.2-3 (2002): 235-256.
 
 ## To-Do
 
