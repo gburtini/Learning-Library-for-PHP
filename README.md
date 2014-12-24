@@ -59,6 +59,19 @@ There are many things that can be improved and there are many known properties (
 
 In many cases, the right answer will be to implement the learning algorithms in a faster language and use PHP only to evaluate their probabilities / compute results from the existing estimates. 
 
+## Citing This
+
+If you wish to cite this work your work, you can cite it as
+
+Burtini, G. (2011). Learning Library for PHP. Canada. <_http://github.com/gburtini/Learning-Library-for-PHP_>
+
+## Works Using This
+
+If you wish to have your work using the Learning Library for PHP in a machine learning, artificial intelligence, bandits or other context, please contact me with details and I will add it here. Actually, even if you don't wish to have your work listed here, I'd love to hear about how you're using the library or what you have learned.
+
+* Buchmann et al. __Personal Information Dashboard: Putting the Individual Back in Control__. Knowledge and Privacy Analytics Engine. Digital Enlightenment Yearbook (2013) p. 139-164, Iso Press, September 2013. ISBN 978-1-61499-294-3 (print) | 978-1-61499-295-0 (online). 
+* Various private projects.
+
 ## License
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
