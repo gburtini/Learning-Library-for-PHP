@@ -21,6 +21,10 @@ In general, you'll want to grab just the "required" features from this repositor
 * **Regression** (regression.php) including optimization implementations for gradient descent ("take a step in the right direction"), stochastic gradient descent, normal equations and a logistic regression implementation.
 * **Simulated Annealing** (sann.php) - an implementation of simulated annealing, a probabilistic metaheuristic for finding global optima with no assumptions about smoothness or size of the search space. Written by Graeme Douglas (2014).
 
+### Changepoint Detection
+* **Mann-Whitney** (mann\_whitney.php) - provides the test of Pettitt (1979) based on the Mann and Whitney "U" test (or rank-sum test, [Wikipedia](https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test)). The function provided accepts a list and a threshold (critical point) and returns a list of locations where changepoints were detected according to the test.
+* **Page-Hinkley** (page\_hinkley.php) - provides the test used in Mouss et al. (2004) and Hartland et al. (2007) among others based on Page's (1953) idea of a cumulative sum ([Wikipedia](https://en.wikipedia.org/wiki/CUSUM)). The test is parameterized with $alpha, the minimum amplitude of a change and $lambda, a parameter proportional to the false positive rate. An extension to Page-Hinkley as provided in Ikonomovska (2012) is also provided which automatically calibrates $alpha to be the standard deviation of the data.
+
 ### Bandits (Partial Observation Reinforcement Learning)
 * **Epsilon Greedy Bandit** (EpsilonBandit.php) - explores (purely randomly) **e** fraction of the time, exploits (maximizes estimated reward) the rest.
 * **UCB1 Bandit** (UCB1Bandit.php) - implements the UCB1 (upper confidence bound) algorithm, as described by Auer et al. (2002). Provides an average and padding function implementation that can easily be extended to other UCB variants.

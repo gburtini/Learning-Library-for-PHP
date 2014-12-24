@@ -5,6 +5,8 @@
 	}
 
 	function _PageHinkleyStatistic($list, $t, $alpha, $mult=1) {
+		// the statistic should have a zero value under the null hypothesis (that a changepoint has not occurred).
+
 		$used_list = array_slice($list, 0, $t);
 		$mean = ll_mean($used_list);
 
@@ -21,9 +23,12 @@
 	function improvedPageHinkley($list, $lambda) {
 		$alphaPH = function($t) {
 			$used_list = array_slice($list, 0, $t);
-			return ll_variance($used_list);
+			return sqrt(ll_variance($used_list));
 		};
 
 		$mean = ll_mean($used_list);
-		return _PageHinkleyStatistic($list, count($list), ll_sign($list[count($list)-1] - $mean), $alphaPH(count($list))/2);
+		return _PageHinkleyStatistic($list, count($list), ll_sign($list[count($list)-1] - $mean), $alphaPH(count($list))/2) > $lambda;
 	} 
+
+	// NOTE: Hartland et al. (2006)'s adaptive version of Page-Hinkley for the bandits context involves updating $lambda = $lambda * $e where $e is set according to whether (ex post) the alarm was false or not, weighted by two parameters (true alarm, having a best value of -10^-4; false alarm, having a best value of 10^-2) times the difference in the best and second best option known (arms, for the bandit context).
+
