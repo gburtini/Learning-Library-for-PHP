@@ -21,6 +21,8 @@ function ll_dbscan($data, $e, $minimumPoints=10) {
          $clusters[] = _ll_expand_cluster(array($index=>$datum), $regionPoints, $e, $minimumPoints, &$visited);
       }
    }
+   
+   return $clusters;
 }
 
 function _ll_points_in_region($point, $data, $epsilon) {
@@ -34,7 +36,7 @@ function _ll_points_in_region($point, $data, $epsilon) {
 }
 
 function _ll_expand_cluster($point, $data, $epsilon, $minimumPoints, &$visited) {
-   $cluster[] = $point;
+   $cluster = array( $point );
 
    foreach($data as $index=>$datum) {
       if(!in_array($index, $visited)) {
@@ -50,6 +52,7 @@ function _ll_expand_cluster($point, $data, $epsilon, $minimumPoints, &$visited) 
       // only add the point if it isn't clustered yet.
       $cluster[] = array($index=>$datum);
    }
+   return $cluster;
 }
 
 function _ll_join_clusters($one, $two) {
