@@ -59,12 +59,12 @@ class LL_Matrix {
             }
         }
         $return = new LL_Matrix($return);
-        $det = $return->determinant();
+        $det = $this->determinant();
 
         if($det == 0)
             return false;
 
-        $return = $return->scalarMultiply(1/$return->determinant());
+        $return = $return->scalarMultiply(1/$det);
         $return->transpose();
         return $return;
     }
