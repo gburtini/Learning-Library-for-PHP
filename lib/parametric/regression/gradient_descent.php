@@ -4,6 +4,7 @@ require_once dirname(__FILE__) . "/../regression.php";
 class LL_GradientDescent_Regression extends LL_Regression {
    protected $learningRate;
    protected $repetitions;
+   protected $minrep = 2; 
    protected $badIterationsThreshold = 3;
    protected $convergenceThreshold;
 
@@ -32,10 +33,11 @@ class LL_GradientDescent_Regression extends LL_Regression {
             $badIterationsCount = 0;   // reset bad iterations count on a good iteration.
          }
 
+         $iterationsCount++;
          if($this->repetitions !== null)
          {
-            $continue = ($iterationsCount++ < $this->repetitions);
-         } else if(  abs(($distance - $newDistance)) < $this->convergenceThreshold  ) {  // convergence test.
+            $continue = ($iterationsCount < $this->repetitions);
+         } else if( $iterationsCount > $this->minrep && abs(($distance - $newDistance)) < $this->convergenceThreshold  ) {  // convergence test.
             $continue = false;
          } else {
             $continue = true;
