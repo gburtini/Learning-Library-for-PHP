@@ -37,11 +37,11 @@ class LL_StochasticGradientDescent_Regression extends LL_GradientDescent_Regress
       if(!$this->hasShuffled)
          $this->stochasticShuffle();
 
+      $temp_parameters = $parameters;
       for($xi=0; $xi<count($this->ys); $xi++) {
-         $temp_parameters = array();
          foreach($parameters as $index=>$param)
          {
-            $temp_parameters[] = $param - ($this->learningRate * $this->distanceDerivative($index, $xi));
+            $temp_parameters[$index] = $temp_parameters[$index] - ($this->learningRate * $this->distanceDerivative($index, $xi));
          }
       }
 
