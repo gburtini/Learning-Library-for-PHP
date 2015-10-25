@@ -78,11 +78,11 @@ function _ll_computeWordCount($string) {
          if(preg_match('/[^a-zA-Z\']/', $word))
             continue;
 
-         $hash = (string) $hash($word);
-         if(!isset($words[$hash]))
-            $words[$hash] = 1; //$words[$hash] = array('word'=>$word, 'count'=>1);
+         $hval = (string) $hash($word);
+         if(!isset($words[$hval]))
+            $words[$hval] = 1; //$words[$hash] = array('word'=>$word, 'count'=>1);
          else
-            $words[$hash]++; //$words[$hash]['count']++;
+            $words[$hval]++; //$words[$hash]['count']++;
       }
 
       return $words;
