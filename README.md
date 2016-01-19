@@ -1,4 +1,7 @@
-# Learning Library for PHP 
+# Learning Library for PHP
+
+[![Build Status](https://travis-ci.org/ReenExeContributor/Learning-Library-for-PHP.svg)](https://travis-ci.org/ReenExeContributor/Learning-Library-for-PHP)
+
 Some machine learning/artificial intelligence/natural language processing algorithms implemented in PHP. Note that in almost all cases, PHP as it stands today is the wrong tool for most machine learning jobs. This library provides a pedagogical introduction to these tools more than it is a recommendation that it is used for day-to-day development.
 
 Copyright (C) 2011-2015 Giuseppe Burtini <joe@truephp.com> and contributors as appropriate. 
