@@ -27,7 +27,11 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     public function signDataProvider()
     {
         return [
-            [1, 1]
+            [1, 1],
+            [3, 1],
+            [-1, -1],
+            [-3, -1],
+            [0, 0],
         ];
     }
 }
