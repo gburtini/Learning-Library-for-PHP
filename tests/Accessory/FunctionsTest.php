@@ -34,4 +34,29 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
             [0, 0],
         ];
     }
+
+    /**
+     * @dataProvider meanDataProvider
+     * @param array $array
+     * @param $expected
+     */
+    public function testMean(array $array, $mean)
+    {
+        $this->assertSame($this->instance->mean($array), $mean);
+    }
+
+    public function meanDataProvider()
+    {
+        return [
+            [
+                [1], 1
+            ],
+            [
+                [2], 2
+            ],
+            [
+                [1, 2, 3], 2
+            ],
+        ];
+    }
 }
