@@ -1,6 +1,8 @@
 <?php
 require_once dirname(__FILE__) . "/gradient_descent.php";
 
+/* @var $move \Giuseppe\LearningLibrary\Parametric\Regression\GradientDescentLogistic */
+
 class LL_GradientDescent_Logistic_Regression extends LL_GradientDescent_Regression {
    public function predict($x, $threshold=0.5) {
       $prob = $this->sigmoid(parent::predict($x));

@@ -1,6 +1,8 @@
 <?php
 require_once dirname(__FILE__) . "/../regression.php";
 
+/* @var $move \Giuseppe\LearningLibrary\Parametric\Regression\GradientDescent */
+
 class LL_GradientDescent_Regression extends LL_Regression {
    protected $learningRate;
    protected $repetitions;

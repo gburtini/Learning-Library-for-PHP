@@ -4,6 +4,8 @@
       See LICENSE for more information.
    */
 
+/* @var $move \Giuseppe\LearningLibrary\Parametric\Regression */
+
 interface ILL_Regression {
    public function predict($x);
 }
