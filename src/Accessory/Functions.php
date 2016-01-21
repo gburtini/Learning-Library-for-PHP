@@ -39,7 +39,7 @@ class Functions
         return $sum_difference / $n;
     }
 
-    public function euclideanDistance($a, $b)
+    public function euclideanDistance(array $a, array $b)
     {
         $count = count($a);
         if ($count !== count($b)) {

@@ -38,7 +38,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider meanDataProvider
      * @param array $array
-     * @param $expected
+     * @param $mean
      */
     public function testMean(array $array, $mean)
     {
@@ -57,6 +57,30 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
             [
                 [1, 2, 3], 2
             ],
+        ];
+    }
+
+    /**
+     * @dataProvider euclideanDistanceDataProvider
+     * @param array $a
+     * @param array $b
+     * @param $result
+     */
+    public function testEuclideanDistance(array $a, array $b, $result)
+    {
+        $this->assertSame($this->instance->euclideanDistance($a, $b), $result);
+    }
+
+    public function euclideanDistanceDataProvider()
+    {
+        return [
+
+            [
+                [1],
+                [1],
+                0.0
+            ],
+
         ];
     }
 }
