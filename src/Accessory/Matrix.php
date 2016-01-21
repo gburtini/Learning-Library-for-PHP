@@ -51,6 +51,9 @@ class Matrix
         return $return;
     }
 
+    /**
+     * @return Matrix
+     */
     public function transpose()
     {
         $return = [];
@@ -125,6 +128,10 @@ class Matrix
     }
 
 
+    /**
+     * @param $array
+     * @return Matrix
+     */
     private function rebuild($array)
     {
         $return = [];
@@ -191,13 +198,21 @@ class Matrix
         return $return;
     }
 
+    /**
+     * @param Matrix $matrix
+     * @return Matrix|false
+     */
     public function multiply(Matrix $matrix)
     {
         return $this->strassenMultiply($matrix);
     }
 
-    // there's a VERY good chance that the naïve implementation is actually faster than Strassen's algorithm
-    // expected to be O(2^log(7)) or so.
+    /**
+     * there's a VERY good chance that the naïve implementation is actually faster than Strassen's algorithm
+     * expected to be O(2^log(7)) or so.
+     * @param Matrix $matrix
+     * @return Matrix|false
+     */
     public function strassenMultiply(Matrix $matrix)
     {
         // impossible operation

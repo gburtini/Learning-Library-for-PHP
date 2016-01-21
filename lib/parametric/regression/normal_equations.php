@@ -1,6 +1,8 @@
 <?php
 require_once dirname(__FILE__) . "/../regression.php";
 
+/* @var $move \Giuseppe\LearningLibrary\Parametric\Regression\NormalEquations */
+
 class LL_NormalEquations_Regression extends LL_Regression {
    public function train() {
       $this->resetParameters = $this->parameters;
