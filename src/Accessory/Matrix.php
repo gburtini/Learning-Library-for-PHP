@@ -31,7 +31,7 @@ class Matrix
 
     public function invert()
     {
-        $return = array();
+        $return = [];
 
         // should really use LU decomp. instead of Cramer's here. much faster.
         for ($i = 0; $i < $this->rows(); $i++) {
@@ -53,7 +53,7 @@ class Matrix
 
     public function transpose()
     {
-        $return = array();
+        $return = [];
         for ($i = 0; $i < $this->rows(); $i++) {
             for ($j = 0; $j < $this->columns(); $j++) {
                 $return[$j][$i] = $this->get($i, $j);  // swap $i and $j
@@ -87,7 +87,7 @@ class Matrix
         if ($this->rows() != $matrix->rows() || $this->columns() != $matrix->columns())
             return false;  // impossible operation.
 
-        $return = array();
+        $return = [];
         for ($i = 0; $i < $this->rows(); $i++) {
             for ($j = 0; $j < $this->columns(); $j++) {
                 $return[$i][$j] = $this->get($i, $j) - $matrix->get($i, $j);
@@ -104,7 +104,7 @@ class Matrix
         if ($this->rows() != $matrix->rows() || $this->columns() != $matrix->columns())
             return false;  // impossible operation.
 
-        $return = array();
+        $return = [];
         for ($i = 0; $i < $this->rows(); $i++) {
             for ($j = 0; $j < $this->columns(); $j++) {
                 $return[$i][$j] = $this->get($i, $j) + $matrix->get($i, $j);
@@ -115,7 +115,7 @@ class Matrix
 
     public function scalarMultiply($value)
     {
-        $return = array();
+        $return = [];
         for ($i = 0; $i < $this->rows(); $i++) {
             for ($j = 0; $j < $this->columns(); $j++) {
                 $return[$i][$j] = $this->get($i, $j) * $value;
@@ -127,7 +127,7 @@ class Matrix
 
     private function rebuild($array)
     {
-        $return = array();
+        $return = [];
 
         $tiles_width = count($array);
         $tiles_height = count($array[0]);
@@ -167,8 +167,8 @@ class Matrix
 
     private function subdivide(Matrix $matrix, $n_wide, $m_tall)
     {
-        $per_width = ($this->columns() / $n_wide);
-        $per_height = ($this->rows() / $m_tall);
+        $per_width = $this->columns() / $n_wide;
+        $per_height = $this->rows() / $m_tall;
 
         if (
             (float)$per_width != (float)round($per_width)
@@ -177,7 +177,7 @@ class Matrix
         )
             return false;  // impossible operation
 
-        $return = array();   // an n x m dimensional array of arrays $per_width by $per_height
+        $return = [];   // an n x m dimensional array of arrays $per_width by $per_height
         for ($n = 0; $n < $n_wide; $n++) {
             for ($m = 0; $m < $m_tall; $m++) {
                 for ($i = 0; $i < $per_width; $i++) {
@@ -200,14 +200,15 @@ class Matrix
     // expected to be O(2^log(7)) or so.
     public function strassenMultiply(Matrix $matrix)
     {
-        if ($this->columns() != $matrix->rows())  // impossible operation.
+        // impossible operation
+        if ($this->columns() !== $matrix->rows()) {
             return false;
-
-        if ($this->columns() < 32)    // threshold for just doing regular multiply.
-        {
-            return $this->naiveMultiply($matrix);
         }
 
+        // threshold for just doing regular multiply
+        if ($this->columns() < 32) {
+            return $this->naiveMultiply($matrix);
+        }
 
         // get these from $this.
         $subdivisions = $this->subdivide($this, 2, 2);
@@ -297,7 +298,7 @@ class Matrix
         if ($this->columns() != $matrix->rows())  // impossible operation.
             return false;
 
-        $result = array();
+        $result = [];
         for ($a = 0; $a < $this->rows(); $a++)   // our rows
         {
             for ($b = 0; $b < $matrix->columns(); $b++) // their columns
@@ -315,7 +316,7 @@ class Matrix
 
     public function getCofactorMatrix($cofactorRow, $cofactorColumn)
     {
-        $return = array();
+        $return = [];
         for ($i = 0, $a = 0; $i < $this->rows(); $i++) {
             $b = 0;
             if ($i != $cofactorRow) {
@@ -338,7 +339,7 @@ class Matrix
 
     public function set($row, $column, $value)
     {
-        return ($this->data[$row][$column] = $value);
+        return $this->data[$row][$column] = $value;
     }
 
     public function columns()
@@ -373,12 +374,12 @@ class Matrix
 
     public function __toString()
     {
-        $string = "";
+        $string = '';
         for ($i = 0; $i < $this->rows(); $i++) {
             for ($j = 0; $j < $this->columns(); $j++) {
                 $string .= $this->get($i, $j) . " ";
             }
-            $string .= "\n";
+            $string .= PHP_EOL;
         }
         return $string;
     }
