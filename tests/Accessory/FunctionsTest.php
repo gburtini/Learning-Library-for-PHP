@@ -95,7 +95,11 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
                 [3, 4],
                 5.0
             ],
-
+            [
+                [1, 2],
+                [3],
+                false
+            ]
         ];
     }
 
