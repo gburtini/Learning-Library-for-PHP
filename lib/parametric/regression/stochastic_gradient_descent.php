@@ -4,6 +4,9 @@ require_once dirname(__FILE__) . "/../regression.php";
 // you'll want to setBadIterationsThreshold($autodetect) higher than normal with stochastic gradient descent,
 // as it isn't rare to have growing distance.
 
+
+/* @var $move \Giuseppe\LearningLibrary\Parametric\Regression\StochasticGradientDescent */
+
 class LL_StochasticGradientDescent_Regression extends LL_GradientDescent_Regression {
    private $hasShuffled = false;
    function __construct($xs, $ys, $initialParameters=null) {

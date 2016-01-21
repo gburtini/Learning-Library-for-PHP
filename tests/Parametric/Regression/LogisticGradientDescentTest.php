@@ -1,6 +1,6 @@
 <?php
 
-use Giuseppe\LearningLibrary\Parametric\Regression\GradientDescentLogistic;
+use Giuseppe\LearningLibrary\Parametric\Regression\LogisticGradientDescent;
 
 class LogisticGradientDescentTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class LogisticGradientDescentTest extends \PHPUnit_Framework_TestCase
         );
         $ys = array(1, 1, 0, 1);
 
-        $lgd = new GradientDescentLogistic($xs, $ys);
+        $lgd = new LogisticGradientDescent($xs, $ys);
         $lgd->setLearningRate(0.03);
         $lgd->setRepetitions(1000);
         $lgd->train();

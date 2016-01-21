@@ -2,7 +2,7 @@
 
 namespace Giuseppe\LearningLibrary\Parametric\Regression;
 
-class GradientDescentLogistic extends GradientDescent
+class LogisticGradientDescent extends GradientDescent
 {
     public function predict($x, $threshold = 0.5)
     {

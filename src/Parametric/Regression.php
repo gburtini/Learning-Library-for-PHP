@@ -15,7 +15,7 @@ abstract class Regression implements RegressionInterface
 
     abstract public function train();
 
-    function __construct($xs, $ys, $initialParameters = null)
+    public function __construct($xs, $ys, $initialParameters = null)
     {
         $this->setData($xs, $ys, $initialParameters);
     }
