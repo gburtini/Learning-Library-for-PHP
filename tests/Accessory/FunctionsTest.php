@@ -176,4 +176,14 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
             ],
         ];
     }
+
+    /**
+     * @covers \Giuseppe\LearningLibrary\Accessory\Functions::unirandf
+     */
+    public function testUnirandf()
+    {
+        $result = $this->instance->unirandf();
+        $this->assertTrue($result > 0);
+        $this->assertTrue($result < 1);
+    }
 }
