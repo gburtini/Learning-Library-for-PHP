@@ -9,12 +9,14 @@ class Functions
         return ($n > 0) - ($n < 0);
     }
 
-    public function transpose($rows)
+    public function transpose(array $source)
     {
-        $columns = array();
-        for ($i = 0; $i < count($rows); $i++) {
-            for ($k = 0; $k < count($rows[$i]); $k++) {
-                $columns[$k][$i] = $rows[$i][$k];
+        $columns = [];
+        $rowCount = count($source);
+        for ($i = 0; $i < $rowCount; ++$i) {
+            $columnCount = count($source[$i]);
+            for ($k = 0; $k < $columnCount; ++$k) {
+                $columns[$k][$i] = $source[$i][$k];
             }
         }
         return $columns;
@@ -25,7 +27,7 @@ class Functions
         return array_sum($array) / count($array);
     }
 
-    public function variance($array)
+    public function variance(array $array)
     {
         $mean = $this->mean($array);
 
@@ -33,13 +35,13 @@ class Functions
         $n = count($array);
 
         for ($i = 0; $i < $n; ++$i) {
-            $sum_difference += pow(($array[$i] - $mean), 2);
+            $sum_difference += pow($array[$i] - $mean, 2);
         }
 
         return $sum_difference / $n;
     }
 
-    public function euclideanDistance($a, $b)
+    public function euclideanDistance(array $a, array $b)
     {
         $count = count($a);
         if ($count !== count($b)) {

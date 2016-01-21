@@ -17,6 +17,8 @@
  */
 
 
+/* @var $move \Giuseppe\LearningLibrary\Accessory\Matrix */
+
 class LL_Matrix {
     private $_data;
 

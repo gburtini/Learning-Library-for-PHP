@@ -7,7 +7,6 @@
    require_once "lib/accessory/functions.php";
 
    require_once "lib/accessory/matrix.php";
-   require_once "lib/accessory/scaling.php";
    require_once "lib/parametric/regression.php";
    //require_once "lib/parametric/neural_network.php";
    require_once "lib/parametric/anomaly_detection.php";
