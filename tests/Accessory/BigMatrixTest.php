@@ -4,7 +4,7 @@ use Giuseppe\LearningLibrary\Accessory\Matrix;
 
 class BigMatrixTest extends \PHPUnit_Framework_TestCase
 {
-    private $size = 32;
+    private $size = 1;
 
     public function testMultiply()
     {

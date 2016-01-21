@@ -15,6 +15,9 @@
 
 require_once dirname(__FILE__) . "/../accessory/functions.php";
 
+/* @var $move \Giuseppe\LearningLibrary\Parametric\OnlineAnomalyDetection */
+/* @var $move \Giuseppe\LearningLibrary\Parametric\AnomalyDetection */
+
 // online anomaly detector, can addObservations instead of only training once.
 class LL_OnlineAnomalyDetection extends LL_AnomalyDetection {
    private $sums;
