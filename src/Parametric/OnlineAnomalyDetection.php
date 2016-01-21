@@ -25,7 +25,7 @@ class OnlineAnomalyDetection extends AnomalyDetection
     public function addObservation($x)
     {
         if (!is_array($x))
-            $x = array($x);
+            $x = [$x];
 
         for ($i = 0; $i < count($x); $i++) {
             $this->sums[$i] += $x[$i];

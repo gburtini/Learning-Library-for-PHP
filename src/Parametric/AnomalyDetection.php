@@ -29,8 +29,8 @@ class AnomalyDetection
         $this->helper = new Functions();
     }
 
-    protected $mean = array();
-    protected $variance = array();
+    protected $mean = [];
+    protected $variance = [];
 
     private $learned = false;
 
@@ -71,17 +71,17 @@ class AnomalyDetection
         if ($p === false)
             return $probability;
 
-        return ($probability < $p);
+        return $probability < $p;
     }
 
 
-    protected $toSave = array("mean", "variance");
+    protected $toSave = ['mean', 'variance'];
 
     public function save()
     {
-        $saveString = "";
+        $saveString = '';
         foreach ($this->toSave as $save) {
-            $saveString .= implode(",", $this->$save) . "|";
+            $saveString .= implode(',', $this->$save) . '|';
         }
         $s_learned = intval($this->learned);
 
@@ -90,12 +90,13 @@ class AnomalyDetection
 
     public function load($saveString)
     {
-        $saveArray = explode("|", $saveString);
-        if (count($saveArray) != count($this->toSave) - 1)
+        $saveArray = explode('|', $saveString);
+        if (count($saveArray) !== count($this->toSave) - 1) {
             return false;
+        }
 
         foreach ($this->toSave as $key => $load) {
-            $this->$load = explode(",", $saveArray[$key]);
+            $this->$load = explode(',', $saveArray[$key]);
         }
 
         $this->learned = (bool)end($saveArray);
@@ -104,7 +105,7 @@ class AnomalyDetection
     protected function computeProbability($x)
     {
         if (!is_array($x))
-            $x = array($x);
+            $x = [$x];
 
         $prod = 1;
         foreach ($x as $index => $xi) {
@@ -135,12 +136,10 @@ class AnomalyDetection
 
     protected function arrayNonArray($array)
     {
-        $return = array();
+        $return = [];
         foreach ($array as $item) {
             $return[] = array($item);
         }
         return $return;
     }
 }
-
-?>
