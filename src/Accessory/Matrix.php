@@ -1,33 +1,15 @@
 <?php
-/*
-   Copyright (c) 2011 Giuseppe Burtini
-   See LICENSE for more information.
 
-   This library implements some basic matrix algebra constructs in PHP. It does not claim to do so
-   in the most efficient known way (in particular, inversion is done in a relatively poor way), but
-   rather to do so in a very clear way. When time permits, I may replace some of the less efficient
-   methods with more efficient methods but regardless numerical computations in PHP are sort of a 
-   disaster.
+namespace Giuseppe\LearningLibrary\Accessory;
 
-   Alternatively, if you accept that I may relicense code submitted to this repository (I will contact
-   you specifically for approval), feel free to submit your own corrections or improvements via a
-   pull request. Please make sure any changes pass the rudimentary testing under tests/matrix_test.php
-
-   This class can standalone and is not dependent on the rest of the learning library.
- */
-
-
-/* @var $move \Giuseppe\LearningLibrary\Accessory\Matrix */
-
-class LL_Matrix {
+class Matrix
+{
     private $_data;
 
-    // transforms array in to a LL_Matrix
-    function __construct($array)
+    public function __construct(array $array)
     {
         $this->set_data($array);
     }
-    function LL_matrix($array) { return $this->__construct($array); }
 
     public static function identity($size=3)
     {
@@ -38,13 +20,13 @@ class LL_Matrix {
                 $result[$i][$j] = ($j == $i);
             }
         }
-        return new LL_Matrix($result);
+        return new Matrix($result);
     }
 
-    public function dotProduct(LL_Matrix $x) {
-    	$a = $this->_data;
-    	$b = $x->getData();
-    	return array_sum(array_map(create_function('$a, $b', 'return $a * $b;'), $a, $b));
+    public function dotProduct(Matrix $x) {
+        $a = $this->_data;
+        $b = $x->getData();
+        return array_sum(array_map(create_function('$a, $b', 'return $a * $b;'), $a, $b));
     }
 
     public function invert()
@@ -60,7 +42,7 @@ class LL_Matrix {
                 $return[$i][$j] = (pow(-1, $i+$j) * $cofactor->determinant());
             }
         }
-        $return = new LL_Matrix($return);
+        $return = new Matrix($return);
         $det = $this->determinant();
 
         if($det == 0)
@@ -82,7 +64,7 @@ class LL_Matrix {
             }
         }
 
-        return new LL_Matrix($return);
+        return new Matrix($return);
     }
 
     public function determinant()
@@ -102,9 +84,9 @@ class LL_Matrix {
     }
 
 
-	public function subtract(LL_Matrix $matrix) {
+    public function subtract(Matrix $matrix) {
         if(is_array($matrix))
-            $matrix = new LL_Matrix($matrix);
+            $matrix = new Matrix($matrix);
 
         if($this->rows() != $matrix->rows() || $this->columns() != $matrix->columns())
             return false;  // impossible operation.
@@ -117,13 +99,13 @@ class LL_Matrix {
                 $return[$i][$j] = $this->get($i,$j)-$matrix->get($i,$j);
             }
         }
-        return new LL_Matrix($return);
-	}
+        return new Matrix($return);
+    }
 
-    public function add(LL_Matrix $matrix)
+    public function add(Matrix $matrix)
     {
         if(is_array($matrix))
-            $matrix = new LL_Matrix($matrix);
+            $matrix = new Matrix($matrix);
 
         if($this->rows() != $matrix->rows() || $this->columns() != $matrix->columns())
             return false;  // impossible operation.
@@ -136,7 +118,7 @@ class LL_Matrix {
                 $return[$i][$j] = $this->get($i,$j)+$matrix->get($i,$j);
             }
         }
-        return new LL_Matrix($return);
+        return new Matrix($return);
     }
 
     public function scalarMultiply($value)
@@ -149,12 +131,12 @@ class LL_Matrix {
                 $return[$i][$j] = $this->get($i,$j)*$value;
             }
         }
-        return new LL_Matrix($return);
+        return new Matrix($return);
     }
 
 
     private function rebuild($array) {
-        $return = array();  
+        $return = array();
 
         $tiles_width = count($array);
         $tiles_height = count($array[0]);
@@ -162,45 +144,45 @@ class LL_Matrix {
             for($m = 0; $m < $tiles_height; $m++) {
 
                 if(is_array($array[$n][$m])) {  // if we have an array, we'll "flatten" the tiles.
-                   $division_width = count($array[$n][$m]);
-                   $division_height = count($array[$n][$m][$i]);
+                    $division_width = count($array[$n][$m]);
+                    $division_height = count($array[$n][$m][$i]);
 
-                   for($i = 0; $i < $division_width; $i++) {
-                       for($j = 0; $j < $division_height; $j++) {
-                           $destination_n = $n*$division_width + $i;
-                           $destination_m = $m*$division_height + $j;
-   
-                           $return[$destination_n][$destination_m] = $array[$n][$m][$i][$j];
-                       }
-                   } 
-               } else if(is_a($array[$n][$m], "LL_Matrix")) {
-                   $division_width = $array[$n][$m]->columns();
-                   $division_height = $array[$n][$m]->rows();
+                    for($i = 0; $i < $division_width; $i++) {
+                        for($j = 0; $j < $division_height; $j++) {
+                            $destination_n = $n*$division_width + $i;
+                            $destination_m = $m*$division_height + $j;
 
-                   for($i = 0; $i < $division_width; $i++) {
-                       for($j = 0; $j < $division_height; $j++) {
-                           $destination_n = $n*$division_width + $i;
-                           $destination_m = $m*$division_height + $j;
+                            $return[$destination_n][$destination_m] = $array[$n][$m][$i][$j];
+                        }
+                    }
+                } else if(is_a($array[$n][$m], "Matrix")) {
+                    $division_width = $array[$n][$m]->columns();
+                    $division_height = $array[$n][$m]->rows();
 
-                           $return[$destination_n][$destination_m] = $array[$n][$m]->get($i,$j);
-                       }
-                   }
-               }
+                    for($i = 0; $i < $division_width; $i++) {
+                        for($j = 0; $j < $division_height; $j++) {
+                            $destination_n = $n*$division_width + $i;
+                            $destination_m = $m*$division_height + $j;
+
+                            $return[$destination_n][$destination_m] = $array[$n][$m]->get($i,$j);
+                        }
+                    }
+                }
             }
         }
 
-        return new LL_Matrix($return);
+        return new Matrix($return);
     }
 
-    private function subdivide(LL_Matrix $matrix, $n_wide, $m_tall) {
+    private function subdivide(Matrix $matrix, $n_wide, $m_tall) {
         $per_width = ($this->columns() / $n_wide);
         $per_height = ($this->rows() / $m_tall);
 
         if(
-                (float) $per_width != (float) round($per_width)
-                ||
-                (float) $per_height != (float) round($per_height)
-          )
+            (float) $per_width != (float) round($per_width)
+            ||
+            (float) $per_height != (float) round($per_height)
+        )
             return false;  // impossible operation
 
         $return = array();   // an n x m dimensional array of arrays $per_width by $per_height
@@ -217,46 +199,46 @@ class LL_Matrix {
         return $return;
     }
 
-	public function multiply(LL_Matrix $matrix) {
-		return $this->strassenMultiply($matrix);
-	}
+    public function multiply(Matrix $matrix) {
+        return $this->strassenMultiply($matrix);
+    }
 
     // there's a VERY good chance that the naïve implementation is actually faster than Strassen's algorithm
     // expected to be O(2^log(7)) or so.
-    public function strassenMultiply(LL_Matrix $matrix) {
+    public function strassenMultiply(Matrix $matrix) {
         if($this->columns() != $matrix->rows())  // impossible operation.
             return false;
 
         if($this->columns() < 32)	// threshold for just doing regular multiply.
         {
-			return $this->naiveMultiply($matrix);
+            return $this->naiveMultiply($matrix);
         }
 
 
         // get these from $this.
         $subdivisions = $this->subdivide($this,2,2);
-		if($subdivisions === false)
-		{
-			return $this->naiveMultiply($matrix);
-		}
+        if($subdivisions === false)
+        {
+            return $this->naiveMultiply($matrix);
+        }
 
-        $a11 = new LL_Matrix($subdivisions[0][0]);
-        $a12 = new LL_Matrix($subdivisions[0][1]);
-        $a21 = new LL_Matrix($subdivisions[1][0]);
-        $a22 = new LL_Matrix($subdivisions[1][1]);
+        $a11 = new Matrix($subdivisions[0][0]);
+        $a12 = new Matrix($subdivisions[0][1]);
+        $a21 = new Matrix($subdivisions[1][0]);
+        $a22 = new Matrix($subdivisions[1][1]);
 
         // get these from $matrix
         $subdivisions = $this->subdivide($matrix,2,2);
-		if($subdivisions === false)
-	    {
-			// fall back on naïve if even subdivide isn't possible.
-	        return $this->naiveMultiply($matrix);
-	    }
+        if($subdivisions === false)
+        {
+            // fall back on naïve if even subdivide isn't possible.
+            return $this->naiveMultiply($matrix);
+        }
 
-        $b11 = new LL_Matrix($subdivisions[0][0]);
-        $b12 = new LL_Matrix($subdivisions[0][1]);
-        $b21 = new LL_Matrix($subdivisions[1][0]);
-        $b22 = new LL_Matrix($subdivisions[1][1]);
+        $b11 = new Matrix($subdivisions[0][0]);
+        $b12 = new Matrix($subdivisions[0][1]);
+        $b21 = new Matrix($subdivisions[1][0]);
+        $b22 = new Matrix($subdivisions[1][1]);
 
         // intermediaries
         /*
@@ -267,8 +249,8 @@ class LL_Matrix {
            M5 = (A11 + A12) B22
            M6 = (A21 – A11) (B11 + B12) M7 = (A12 – A22) (B21 + B22)
          */
-        
-		$m1_1 = ($a11->add($a22));
+
+        $m1_1 = ($a11->add($a22));
         $m1_2 = ($b11->add($b22));
         $m1 = $m1_1->strassenMultiply($m1_2);
         unset($m1_1); unset($m1_2);
@@ -303,21 +285,21 @@ class LL_Matrix {
 
         $c12 = $m3->add($m5);
         $c21 = $m2->add($m4);
-        
-		$c22 = $m1->subtract($m2);
+
+        $c22 = $m1->subtract($m2);
         $c22 = $c22->add($m3);
         $c22 = $c22->add($m6);
-   
-        $result = array(array($c11, $c12), array($c21, $c22)); 
+
+        $result = array(array($c11, $c12), array($c21, $c22));
         return $this->rebuild($result);
     }
 
-    // naïve implementation... O(n^3) or worse because of the new LL_Matrix calls.
-    public function naiveMultiply(LL_Matrix $matrix)
+    // naïve implementation... O(n^3) or worse because of the new Matrix calls.
+    public function naiveMultiply(Matrix $matrix)
     {
-        if(is_array($matrix))   // make sure the matrix is an LL_Matrix
+        if(is_array($matrix))   // make sure the matrix is an Matrix
         {
-            $matrix = new LL_Matrix($matrix);
+            $matrix = new Matrix($matrix);
         }
         if($this->columns() != $matrix->rows())  // impossible operation.
             return false;
@@ -335,7 +317,7 @@ class LL_Matrix {
             }
         }
 
-        return new LL_Matrix($result);
+        return new Matrix($result);
     }
 
     public function getCofactorMatrix($cofactorRow, $cofactorColumn)
@@ -357,7 +339,7 @@ class LL_Matrix {
             }
 
         }
-        return new LL_Matrix($return);
+        return new Matrix($return);
     }
 
     public function get($row, $column)
@@ -377,15 +359,15 @@ class LL_Matrix {
     public function rows() {
         return count($this->_data);
     }
-    
+
     public function getData() { return $this->_data; }
 
     private function set_data($array)
     {
-		if(!is_array($array)) {
-			var_dump($array);
-			die("Degenerate matrix.");
-		} 
+        if(!is_array($array)) {
+            var_dump($array);
+            die("Degenerate matrix.");
+        }
         foreach($array as $row=>$vector)
         {
             if(!is_array($vector)) {   // php hates foreach on single elements
@@ -414,5 +396,3 @@ class LL_Matrix {
         return $string;
     }
 }
-
-?>

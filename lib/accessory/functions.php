@@ -1,4 +1,7 @@
 <?php
+
+/* @var $move \Giuseppe\LearningLibrary\Accessory\Functions */
+
 function ll_sign($n) {
 	return ($n > 0) - ($n < 0);
 }
