@@ -16,6 +16,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider signDataProvider
+     * @covers \Giuseppe\LearningLibrary\Accessory\Functions::sign
      * @param $n
      * @param $sign
      */
@@ -37,6 +38,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider meanDataProvider
+     * @covers \Giuseppe\LearningLibrary\Accessory\Functions::mean
      * @param array $array
      * @param $mean
      */
@@ -98,6 +100,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider transposeDataProvider
+     * @covers \Giuseppe\LearningLibrary\Accessory\Functions::transpose
      * @param array $source
      * @param array $transpose
      */
