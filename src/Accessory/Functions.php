@@ -39,13 +39,15 @@ class Functions
         return $sum_difference / $n;
     }
 
-    public function euclidian_distance($a, $b)
+    public function euclideanDistance($a, $b)
     {
-        if (count($a) != count($b))
+        $count = count($a);
+        if ($count !== count($b)) {
             return false;
+        }
 
         $distance = 0;
-        for ($i = 0; $i < count($a); $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             $distance += pow($a[$i] - $b[$i], 2);
         }
 
