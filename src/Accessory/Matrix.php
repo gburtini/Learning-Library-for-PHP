@@ -359,12 +359,12 @@ class Matrix
     private function setData($array)
     {
         foreach ($array as $row => $vector) {
-            if (!is_array($vector)) {   // php hates foreach on single elements
-                $this->data[$row][0] = $vector;
-            } else {
+            if (is_array($vector)) {
                 foreach ($vector as $col => $cell) {
                     $this->data[$row][$col] = $cell;
                 }
+            } else {
+                $this->data[$row][0] = $vector;
             }
         }
 
