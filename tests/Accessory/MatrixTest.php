@@ -125,16 +125,10 @@ class MatrixTest extends PHPUnit_Framework_TestCase
 
     private function getIdentityMatrix($size = 3)
     {
-        $result = array();
-        for ($i = 0; $i < $size; $i++) {
-            for ($j = 0; $j < $size; $j++) {
-                $result[$i][$j] = ($j == $i);
-            }
-        }
-        return new Matrix($result);
+        return Matrix::identity($size);
     }
 
-    private function checkAllValues($result, $value)
+    private function checkAllValues(Matrix $result, $value)
     {
         for ($i = 0; $i < $result->rows(); $i++) {
             for ($j = 0; $j < $result->columns(); $j++) {

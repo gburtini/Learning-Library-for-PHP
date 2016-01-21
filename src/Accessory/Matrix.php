@@ -4,27 +4,27 @@ namespace Giuseppe\LearningLibrary\Accessory;
 
 class Matrix
 {
-    private $_data;
+    private $data;
 
     public function __construct(array $array)
     {
-        $this->set_data($array);
+        $this->setData($array);
     }
 
-    public static function identity($size=3)
+    public static function identity($size = 3)
     {
-        $result = array();
-        for($i=0;$i<$size; $i++)
-        {
-            for($j=0; $j<$size; $j++) {
-                $result[$i][$j] = ($j == $i);
+        $result = [];
+        for ($i = 0; $i < $size; $i++) {
+            for ($j = 0; $j < $size; $j++) {
+                $result[$i][$j] = $j == $i;
             }
         }
         return new Matrix($result);
     }
 
-    public function dotProduct(Matrix $x) {
-        $a = $this->_data;
+    public function dotProduct(Matrix $x)
+    {
+        $a = $this->data;
         $b = $x->getData();
         return array_sum(array_map(create_function('$a, $b', 'return $a * $b;'), $a, $b));
     }
@@ -34,21 +34,19 @@ class Matrix
         $return = array();
 
         // should really use LU decomp. instead of Cramer's here. much faster.
-        for($i=0; $i<$this->rows(); $i++)
-        {
-            for($j=0; $j<$this->columns(); $j++)
-            {
+        for ($i = 0; $i < $this->rows(); $i++) {
+            for ($j = 0; $j < $this->columns(); $j++) {
                 $cofactor = $this->getCofactorMatrix($i, $j);
-                $return[$i][$j] = (pow(-1, $i+$j) * $cofactor->determinant());
+                $return[$i][$j] = (pow(-1, $i + $j) * $cofactor->determinant());
             }
         }
         $return = new Matrix($return);
         $det = $this->determinant();
 
-        if($det == 0)
+        if ($det == 0)
             return false;
 
-        $return = $return->scalarMultiply(1/$det);
+        $return = $return->scalarMultiply(1 / $det);
         $return->transpose();
         return $return;
     }
@@ -56,10 +54,8 @@ class Matrix
     public function transpose()
     {
         $return = array();
-        for($i=0; $i<$this->rows(); $i++)
-        {
-            for($j=0; $j<$this->columns(); $j++)
-            {
+        for ($i = 0; $i < $this->rows(); $i++) {
+            for ($j = 0; $j < $this->columns(); $j++) {
                 $return[$j][$i] = $this->get($i, $j);  // swap $i and $j
             }
         }
@@ -70,11 +66,10 @@ class Matrix
     public function determinant()
     {
         $return = 0;
-        if($this->columns() == 1)
-            return $this->get(0,0);
+        if ($this->columns() == 1)
+            return $this->get(0, 0);
 
-        for($i=0; $i<$this->columns(); $i++)
-        {
+        for ($i = 0; $i < $this->columns(); $i++) {
             // instead of using 0 here, we can probably do this more efficiently.
             $cofactor = $this->getCofactorMatrix(0, $i);
             $multipland = (pow((-1), $i) * $this->get(0, $i));
@@ -84,19 +79,18 @@ class Matrix
     }
 
 
-    public function subtract(Matrix $matrix) {
-        if(is_array($matrix))
+    public function subtract(Matrix $matrix)
+    {
+        if (is_array($matrix))
             $matrix = new Matrix($matrix);
 
-        if($this->rows() != $matrix->rows() || $this->columns() != $matrix->columns())
+        if ($this->rows() != $matrix->rows() || $this->columns() != $matrix->columns())
             return false;  // impossible operation.
 
         $return = array();
-        for($i=0; $i<$this->rows(); $i++)
-        {
-            for($j=0; $j<$this->columns(); $j++)
-            {
-                $return[$i][$j] = $this->get($i,$j)-$matrix->get($i,$j);
+        for ($i = 0; $i < $this->rows(); $i++) {
+            for ($j = 0; $j < $this->columns(); $j++) {
+                $return[$i][$j] = $this->get($i, $j) - $matrix->get($i, $j);
             }
         }
         return new Matrix($return);
@@ -104,18 +98,16 @@ class Matrix
 
     public function add(Matrix $matrix)
     {
-        if(is_array($matrix))
+        if (is_array($matrix))
             $matrix = new Matrix($matrix);
 
-        if($this->rows() != $matrix->rows() || $this->columns() != $matrix->columns())
+        if ($this->rows() != $matrix->rows() || $this->columns() != $matrix->columns())
             return false;  // impossible operation.
 
         $return = array();
-        for($i=0; $i<$this->rows(); $i++)
-        {
-            for($j=0; $j<$this->columns(); $j++)
-            {
-                $return[$i][$j] = $this->get($i,$j)+$matrix->get($i,$j);
+        for ($i = 0; $i < $this->rows(); $i++) {
+            for ($j = 0; $j < $this->columns(); $j++) {
+                $return[$i][$j] = $this->get($i, $j) + $matrix->get($i, $j);
             }
         }
         return new Matrix($return);
@@ -124,47 +116,46 @@ class Matrix
     public function scalarMultiply($value)
     {
         $return = array();
-        for($i=0; $i<$this->rows(); $i++)
-        {
-            for($j=0; $j<$this->columns(); $j++)
-            {
-                $return[$i][$j] = $this->get($i,$j)*$value;
+        for ($i = 0; $i < $this->rows(); $i++) {
+            for ($j = 0; $j < $this->columns(); $j++) {
+                $return[$i][$j] = $this->get($i, $j) * $value;
             }
         }
         return new Matrix($return);
     }
 
 
-    private function rebuild($array) {
+    private function rebuild($array)
+    {
         $return = array();
 
         $tiles_width = count($array);
         $tiles_height = count($array[0]);
-        for($n = 0; $n < $tiles_width; $n++) {
-            for($m = 0; $m < $tiles_height; $m++) {
+        for ($n = 0; $n < $tiles_width; $n++) {
+            for ($m = 0; $m < $tiles_height; $m++) {
 
-                if(is_array($array[$n][$m])) {  // if we have an array, we'll "flatten" the tiles.
+                if (is_array($array[$n][$m])) {  // if we have an array, we'll "flatten" the tiles.
                     $division_width = count($array[$n][$m]);
                     $division_height = count($array[$n][$m][$i]);
 
-                    for($i = 0; $i < $division_width; $i++) {
-                        for($j = 0; $j < $division_height; $j++) {
-                            $destination_n = $n*$division_width + $i;
-                            $destination_m = $m*$division_height + $j;
+                    for ($i = 0; $i < $division_width; $i++) {
+                        for ($j = 0; $j < $division_height; $j++) {
+                            $destination_n = $n * $division_width + $i;
+                            $destination_m = $m * $division_height + $j;
 
                             $return[$destination_n][$destination_m] = $array[$n][$m][$i][$j];
                         }
                     }
-                } else if(is_a($array[$n][$m], "Matrix")) {
+                } else if (is_a($array[$n][$m], "Matrix")) {
                     $division_width = $array[$n][$m]->columns();
                     $division_height = $array[$n][$m]->rows();
 
-                    for($i = 0; $i < $division_width; $i++) {
-                        for($j = 0; $j < $division_height; $j++) {
-                            $destination_n = $n*$division_width + $i;
-                            $destination_m = $m*$division_height + $j;
+                    for ($i = 0; $i < $division_width; $i++) {
+                        for ($j = 0; $j < $division_height; $j++) {
+                            $destination_n = $n * $division_width + $i;
+                            $destination_m = $m * $division_height + $j;
 
-                            $return[$destination_n][$destination_m] = $array[$n][$m]->get($i,$j);
+                            $return[$destination_n][$destination_m] = $array[$n][$m]->get($i, $j);
                         }
                     }
                 }
@@ -174,23 +165,24 @@ class Matrix
         return new Matrix($return);
     }
 
-    private function subdivide(Matrix $matrix, $n_wide, $m_tall) {
+    private function subdivide(Matrix $matrix, $n_wide, $m_tall)
+    {
         $per_width = ($this->columns() / $n_wide);
         $per_height = ($this->rows() / $m_tall);
 
-        if(
-            (float) $per_width != (float) round($per_width)
+        if (
+            (float)$per_width != (float)round($per_width)
             ||
-            (float) $per_height != (float) round($per_height)
+            (float)$per_height != (float)round($per_height)
         )
             return false;  // impossible operation
 
         $return = array();   // an n x m dimensional array of arrays $per_width by $per_height
-        for($n = 0; $n < $n_wide; $n++) {
-            for($m = 0; $m < $m_tall; $m++) {
-                for($i = 0; $i < $per_width; $i++) {
-                    for($j = 0; $j < $per_height; $j++) {
-                        $return[$n][$m][$i][$j] = $matrix->get($i + ($n*$per_width), $j + ($m * $per_height));
+        for ($n = 0; $n < $n_wide; $n++) {
+            for ($m = 0; $m < $m_tall; $m++) {
+                for ($i = 0; $i < $per_width; $i++) {
+                    for ($j = 0; $j < $per_height; $j++) {
+                        $return[$n][$m][$i][$j] = $matrix->get($i + ($n * $per_width), $j + ($m * $per_height));
                     }
                 }
             }
@@ -199,26 +191,27 @@ class Matrix
         return $return;
     }
 
-    public function multiply(Matrix $matrix) {
+    public function multiply(Matrix $matrix)
+    {
         return $this->strassenMultiply($matrix);
     }
 
     // there's a VERY good chance that the naïve implementation is actually faster than Strassen's algorithm
     // expected to be O(2^log(7)) or so.
-    public function strassenMultiply(Matrix $matrix) {
-        if($this->columns() != $matrix->rows())  // impossible operation.
+    public function strassenMultiply(Matrix $matrix)
+    {
+        if ($this->columns() != $matrix->rows())  // impossible operation.
             return false;
 
-        if($this->columns() < 32)	// threshold for just doing regular multiply.
+        if ($this->columns() < 32)    // threshold for just doing regular multiply.
         {
             return $this->naiveMultiply($matrix);
         }
 
 
         // get these from $this.
-        $subdivisions = $this->subdivide($this,2,2);
-        if($subdivisions === false)
-        {
+        $subdivisions = $this->subdivide($this, 2, 2);
+        if ($subdivisions === false) {
             return $this->naiveMultiply($matrix);
         }
 
@@ -228,9 +221,8 @@ class Matrix
         $a22 = new Matrix($subdivisions[1][1]);
 
         // get these from $matrix
-        $subdivisions = $this->subdivide($matrix,2,2);
-        if($subdivisions === false)
-        {
+        $subdivisions = $this->subdivide($matrix, 2, 2);
+        if ($subdivisions === false) {
             // fall back on naïve if even subdivide isn't possible.
             return $this->naiveMultiply($matrix);
         }
@@ -253,7 +245,8 @@ class Matrix
         $m1_1 = ($a11->add($a22));
         $m1_2 = ($b11->add($b22));
         $m1 = $m1_1->strassenMultiply($m1_2);
-        unset($m1_1); unset($m1_2);
+        unset($m1_1);
+        unset($m1_2);
 
         $m2_1 = $a21->add($a22);
         $m2 = $m2_1->strassenMultiply($b11);
@@ -297,22 +290,22 @@ class Matrix
     // naïve implementation... O(n^3) or worse because of the new Matrix calls.
     public function naiveMultiply(Matrix $matrix)
     {
-        if(is_array($matrix))   // make sure the matrix is an Matrix
+        if (is_array($matrix))   // make sure the matrix is an Matrix
         {
             $matrix = new Matrix($matrix);
         }
-        if($this->columns() != $matrix->rows())  // impossible operation.
+        if ($this->columns() != $matrix->rows())  // impossible operation.
             return false;
 
         $result = array();
-        for($a=0; $a<$this->rows(); $a++)   // our rows
+        for ($a = 0; $a < $this->rows(); $a++)   // our rows
         {
-            for($b=0; $b<$matrix->columns(); $b++) // their columns
+            for ($b = 0; $b < $matrix->columns(); $b++) // their columns
             {
                 $result[$a][$b] = 0;
-                for($i=0; $i<$this->columns(); $i++)   // our columns
+                for ($i = 0; $i < $this->columns(); $i++)   // our columns
                 {
-                    $result[$a][$b] += ($this->get($a,$i) * $matrix->get($i, $b));
+                    $result[$a][$b] += ($this->get($a, $i) * $matrix->get($i, $b));
                 }
             }
         }
@@ -323,16 +316,12 @@ class Matrix
     public function getCofactorMatrix($cofactorRow, $cofactorColumn)
     {
         $return = array();
-        for($i=0, $a=0; $i<$this->rows(); $i++)
-        {
-            $b=0;
-            if($i != $cofactorRow)
-            {
-                for($j=0; $j<$this->columns(); $j++)
-                {
-                    if($j != $cofactorColumn)
-                    {
-                        $return[$a][$b++] = $this->get($i,$j);
+        for ($i = 0, $a = 0; $i < $this->rows(); $i++) {
+            $b = 0;
+            if ($i != $cofactorRow) {
+                for ($j = 0; $j < $this->columns(); $j++) {
+                    if ($j != $cofactorColumn) {
+                        $return[$a][$b++] = $this->get($i, $j);
                     }
                 }
                 $a++;
@@ -344,51 +333,49 @@ class Matrix
 
     public function get($row, $column)
     {
-        return $this->_data[$row][$column];
+        return $this->data[$row][$column];
     }
 
     public function set($row, $column, $value)
     {
-        return ($this->_data[$row][$column] = $value);
+        return ($this->data[$row][$column] = $value);
     }
 
     public function columns()
     {
-        return count($this->_data[0]);
-    }
-    public function rows() {
-        return count($this->_data);
+        return count($this->data[0]);
     }
 
-    public function getData() { return $this->_data; }
-
-    private function set_data($array)
+    public function rows()
     {
-        if(!is_array($array)) {
-            var_dump($array);
-            die("Degenerate matrix.");
-        }
-        foreach($array as $row=>$vector)
-        {
-            if(!is_array($vector)) {   // php hates foreach on single elements
-                $this->_data[$row][0] = $vector;
+        return count($this->data);
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    private function setData($array)
+    {
+        foreach ($array as $row => $vector) {
+            if (!is_array($vector)) {   // php hates foreach on single elements
+                $this->data[$row][0] = $vector;
             } else {
-                foreach($vector as $col=>$cell)
-                {
-                    $this->_data[$row][$col] = $cell;
+                foreach ($vector as $col => $cell) {
+                    $this->data[$row][$col] = $cell;
                 }
             }
         }
 
-        return $this->_data;
+        return $this->data;
     }
 
     public function __toString()
     {
         $string = "";
-        for($i=0;$i<$this->rows();$i++)
-        {
-            for($j=0;$j<$this->columns(); $j++) {
+        for ($i = 0; $i < $this->rows(); $i++) {
+            for ($j = 0; $j < $this->columns(); $j++) {
                 $string .= $this->get($i, $j) . " ";
             }
             $string .= "\n";
