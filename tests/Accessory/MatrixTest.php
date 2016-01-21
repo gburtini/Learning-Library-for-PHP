@@ -2,7 +2,7 @@
 
 use Giuseppe\LearningLibrary\Accessory\Matrix;
 
-class MatrixTest extends PHPUnit_Framework_TestCase
+class MatrixTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Giuseppe\LearningLibrary\Accessory\Matrix::invert
