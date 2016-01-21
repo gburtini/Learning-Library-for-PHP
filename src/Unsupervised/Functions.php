@@ -21,18 +21,18 @@ class Functions
         if ($k > count($xs))
             return false;
 
-        $centroids = _ll_init_centroids($xs, $k);
+        $centroids = $this->init_centroids($xs, $k);
         $belongs_to = array();
         do {
             for ($i = 0; $i < count($xs); $i++) {
                 // I reversed the order here (to store the centroids as indexes in the array)
                 // for complexity reasons.
 
-                $belongs_to[_ll_closest_centroid($xs[$i], $centroids)][] = $i;
+                $belongs_to[$this->closest_centroid($xs[$i], $centroids)][] = $i;
             }
 
             $old_centroids = $centroids;
-            $centroids = _ll_reposition_centroids($centroids, $belongs_to, $xs);
+            $centroids = $this->reposition_centroids($centroids, $belongs_to, $xs);
 
             $continue = ($old_centroids == $centroids);
         } while ($continue);
@@ -51,7 +51,7 @@ class Functions
             foreach ($my_observations as $obs) {
                 $my_obs_values[] = $xs[$obs];
             }
-            $my_obs_values = __ll_flip($my_obs_values);
+            $my_obs_values = $this->flip($my_obs_values);
 
             $new_position = array();
             foreach ($my_obs_values as $new_dimension) {
