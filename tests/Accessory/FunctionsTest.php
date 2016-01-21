@@ -95,4 +95,24 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
         ];
     }
+
+    /**
+     * @dataProvider transposeDataProvider
+     * @param array $source
+     * @param array $transpose
+     */
+    public function testTranspose(array $source, array $transpose)
+    {
+        $this->assertSame($this->instance->transpose($source), $transpose);
+    }
+
+    public function transposeDataProvider()
+    {
+        return [
+            [
+                [],
+                []
+            ],
+        ];
+    }
 }

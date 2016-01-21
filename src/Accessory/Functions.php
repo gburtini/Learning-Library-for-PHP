@@ -9,12 +9,14 @@ class Functions
         return ($n > 0) - ($n < 0);
     }
 
-    public function transpose($rows)
+    public function transpose(array $source)
     {
-        $columns = array();
-        for ($i = 0; $i < count($rows); $i++) {
-            for ($k = 0; $k < count($rows[$i]); $k++) {
-                $columns[$k][$i] = $rows[$i][$k];
+        $columns = [];
+        $rowCount = count($source);
+        for ($i = 0; $i < $rowCount; ++$i) {
+            $columnCount = count($source[$i]);
+            for ($k = 0; $k < $columnCount; ++$k) {
+                $columns[$k][$i] = $source[$i][$k];
             }
         }
         return $columns;
