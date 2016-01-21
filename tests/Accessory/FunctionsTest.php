@@ -64,6 +64,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider euclideanDistanceDataProvider
+     * @covers \Giuseppe\LearningLibrary\Accessory\Functions::euclideanDistance
      * @param array $a
      * @param array $b
      * @param $result
@@ -115,6 +116,31 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
             [
                 [],
                 []
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider varianceDataProvider
+     * @covers \Giuseppe\LearningLibrary\Accessory\Functions::variance
+     * @param array $array
+     * @param $expected
+     */
+    public function testVariance(array $array, $expected)
+    {
+        $this->assertSame($this->instance->variance($array), $expected);
+    }
+
+    public function varianceDataProvider()
+    {
+        return [
+            [
+                [1, 1, 1],
+                0
+            ],
+            [
+                [1, 2, 3, 4, 5],
+                2
             ],
         ];
     }

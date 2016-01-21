@@ -27,7 +27,7 @@ class Functions
         return array_sum($array) / count($array);
     }
 
-    public function variance($array)
+    public function variance(array $array)
     {
         $mean = $this->mean($array);
 
@@ -35,7 +35,7 @@ class Functions
         $n = count($array);
 
         for ($i = 0; $i < $n; ++$i) {
-            $sum_difference += pow(($array[$i] - $mean), 2);
+            $sum_difference += pow($array[$i] - $mean, 2);
         }
 
         return $sum_difference / $n;
