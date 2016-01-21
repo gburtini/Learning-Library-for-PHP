@@ -11,7 +11,7 @@ class MarkovChain
     protected $degree;
 
     // corpus can be either a string, which will be tokenized or an array which is assumed to already be tokenized.
-    public function train($corpus, $degree = 1, $token = HMM_TOKEN_PATTERN)
+    public function train($corpus, $degree = 1, $token = self::HMM_TOKEN_PATTERN)
     {
         if (!is_array($corpus))
             $corpus = $this->tokenize($corpus, $token);
