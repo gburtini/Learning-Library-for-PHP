@@ -28,10 +28,9 @@ abstract class Regression implements RegressionInterface
         $this->xs = $xs;
         $this->ys = $ys;
 
-        if ($initialParameters === null)
-            $this->parameters = array_fill(0, count($xs[0]), 0);
-        else
-            $this->parameters = $initialParameters;
+        $this->parameters = $initialParameters === null
+            ? array_fill(0, count($xs[0]), 0)
+            : $initialParameters;
 
         $this->trained = false;
     }
