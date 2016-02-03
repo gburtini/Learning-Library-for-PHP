@@ -16,7 +16,7 @@
 
          $gd = new LL_StochasticGradientDescent_Regression($xs, $ys, $parameters);
          $gd->setBadIterationsThreshold(5000);
-         $gd->setLearningRate(0.02);
+         $gd->setLearningRate(0.002);
          $gd->setRepetitions(1000);
          $gd->train();
 
