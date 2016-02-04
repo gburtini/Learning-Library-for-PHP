@@ -54,9 +54,8 @@ class SannTest extends \PHPUnit_Framework_TestCase
 
         $instance = new Sann();
 
-        $objF = 'partition_objective';
         $P = $instance->sann($initP,
-            $objF,
+            'partition_objective',
             'partition_neighbour',
             #'logarithmic_cooling',
             #'linear_cooling',
