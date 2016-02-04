@@ -17,7 +17,7 @@ class StochasticGradientDescentTest extends \PHPUnit_Framework_TestCase
 
         $gd = new StochasticGradientDescent($xs, $ys, $parameters);
         $gd->setBadIterationsThreshold(5000);
-        $gd->setLearningRate(0.02);
+        $gd->setLearningRate(0.002);
         $gd->setRepetitions(1000);
         $gd->train();
 
@@ -31,10 +31,7 @@ class StochasticGradientDescentTest extends \PHPUnit_Framework_TestCase
             $high_bound = $y * (1 + $threshold);
             $low_bound = $y * (1 - $threshold);
 
-            /**
-             * THIS IS FAIL?
-             */
-            // $this->assertTrue($estimates[$index] > $low_bound && $estimates[$index] < $high_bound);
+            $this->assertTrue($estimates[$index] > $low_bound && $estimates[$index] < $high_bound);
         }
     }
 }
