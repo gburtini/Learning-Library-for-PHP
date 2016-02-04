@@ -33,9 +33,8 @@ class Sann
     public function unbounded_exponential_cooling($t, $initT = 10, $alpha = 0.99, $delta = 0.0001)
     {
         $T = $initT * pow($alpha, $t);
-        if ($T < $delta)
-            $T = 0;
-        return $T;
+
+        return ($T < $delta) ? 0 : $T;
     }
 
     public function logarithmic_cooling($t, $maxt = 151, $c = 2.0)
@@ -84,7 +83,6 @@ class Sann
         $t = 0;
 
         while (($T = $coolingF($t)) > 0) {
-            #var_dump("temperature: " . $T);
             $candidateS = $nF($currS);
             $candVal = $objF($currS);
             if ($acceptF($T, $currVal, $candVal,
