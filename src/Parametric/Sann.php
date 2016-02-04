@@ -48,7 +48,7 @@ class Sann
         }
     }
 
-    public function default_accept($curr, $candidate, $t, $T, $currVal, $candVal, $norm)
+    public function default_accept($T, $currVal, $candVal, $norm)
     {
         $delta = $norm * ($candVal - $currVal);
 
@@ -82,12 +82,12 @@ class Sann
         $bestS = $currS;
         $bestVal = $currVal;
         $t = 0;
-        $T;
+
         while (($T = $coolingF($t)) > 0) {
             #var_dump("temperature: " . $T);
             $candidateS = $nF($currS);
             $candVal = $objF($currS);
-            if ($acceptF($currS, $candidate, $t, $T, $curVal, $candVal,
+            if ($acceptF($T, $currVal, $candVal,
                 $norm)) {
                 $currS = $candidateS;
                 $currVal = $candVal;
