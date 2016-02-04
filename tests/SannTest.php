@@ -63,8 +63,8 @@ class SannTest extends \PHPUnit_Framework_TestCase
             [$instance, 'unbounded_exponential_cooling'],
             [$instance, 'default_accept'],
             true);
+
         $solutionScore = partition_objective($P);
-        echo "Objective of found solution: " . $solutionScore  . "\n";
-        var_dump($P);
+        $this->assertEquals(0, $solutionScore, 'Objective of found solution out of range', 30);
     }
 }
