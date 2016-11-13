@@ -33,7 +33,6 @@ class LL_GradientDescent_Regression extends LL_Regression {
             $badIterationsCount = 0;   // reset bad iterations count on a good iteration.
          }
 
-         $iterationsCount++;
          if($this->repetitions !== null)
          {
             $continue = ($iterationsCount < $this->repetitions);
